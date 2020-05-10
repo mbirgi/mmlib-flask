@@ -1,36 +1,42 @@
 from .. import db
-from ..models import Track
+from ..models import Track, Artist
 
 
-def _fetch_saved_tracks():
-    print(f"fetching saved tracks from library")
-    # TODO: fetch tracks from db
-    return []
-
-
-def _delete_saved_tracks(tracks):
-    if not tracks: return
-    print(f"deleting saved tracks: {tracks}")
-
-
-def _add_saved_tracks(tracks):
-    if not tracks: return
-    print(f"adding saved tracks: {tracks}")
-    for track in tracks:
-        db.session.add(Track(
-            id=track['id'],
-            name=track['name'],
-            duration_ms=track['duration_ms']
-        ))
-    db.session.commit()
-
-
-def _update_saved_tracks(new_saved_tracks):
-    old_saved_tracks = _fetch_saved_tracks()
-    deletable_saved_tracks = [track for track in old_saved_tracks if track not in new_saved_tracks]
-    additional_saved_tracks = [track for track in new_saved_tracks if track not in old_saved_tracks]
-    _delete_saved_tracks(deletable_saved_tracks)
-    _add_saved_tracks(additional_saved_tracks)
+def _update_saved_tracks(fetched_tracks):
+    if not fetched_tracks: return
+    # check for existing saved tracks that are no more in the spotify library
+    existing_tracks = Track.query.filter_by(is_saved_track=True).all()
+    deleted_tracks = [track for track in existing_tracks if track not in fetched_tracks]
+    for track in deleted_tracks:
+        track.is_saved_track = False
+        db.session.add(track)
+    # add tracks not already in the library
+    for fetched_track in fetched_tracks:
+        existing_track = next((track for track in existing_tracks if track.id == fetched_track['id']), None)
+        if existing_track:
+            existing_track.is_saved_track = True
+        else:
+            new_track = Track(
+                id=fetched_track['id'],
+                name=fetched_track['name'],
+                is_saved_track=True,
+                duration_ms=fetched_track['duration_ms'],
+                artists=[]
+            )
+            print(f"new track: {new_track}")
+            db.session.add(new_track)
+            for artist in fetched_track['artists']:
+                # check if artist exists:
+                existing_artist = Artist.query.get(artist['id'])
+                if not existing_artist:
+                    new_artist = Artist(
+                        id=artist['id'],
+                        name=artist['name']
+                    )
+                    print(f"new artist: {new_artist}")
+                    db.session.add(new_artist)
+                    new_track.artists.append(new_artist)
+        db.session.commit()
 
 
 def refresh_from_spotify(spotify_library):

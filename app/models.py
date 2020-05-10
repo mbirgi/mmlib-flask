@@ -73,6 +73,7 @@ class Track(db.Model):
     __tablename__ = 'tracks'
     id = db.Column(db.String(22), primary_key=True)  # use Spotify ID
     name = db.Column(db.String(256))
+    is_saved_track = db.Column(db.Boolean, default=False)
     artists = db.relationship('Artist', secondary=track_artists, backref=db.backref('tracks'))
     # albums = db.relationship('Album', secondary=album_tracks, backref=db.backref('tracks'))
     duration_ms = db.Column(db.Integer)
@@ -91,3 +92,9 @@ class Playlist(db.Model):
 
     def __repr__(self):
         return self.name
+
+
+# class SavedTrack(db.Model):
+#     __tablename__ = 'saved_tracks'
+#     id = db.Column(db.String(22), primary_key=True)  # use Spotify ID
+#     track = db.Column(db.String(22), db.ForeignKey('tracks.id'))
