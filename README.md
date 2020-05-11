@@ -7,9 +7,9 @@ that can be saved to Spotify.
 
 ## MVP
 - read / write a local copy of the Spotify library
-    - SQLite db for storing Spotify saved tracks, saved albums, 
+    - JSON files for storing Spotify saved tracks, saved albums, 
     playlists (those will be overwritten with each import)
-    - separate table for all tracks for saving local extras, e.g. genres, tags, audio 
+    - separate file for all tracks for saving local extras, e.g. genres, tags, audio 
       features? -> this will need atomic read/write
 - manage tags, genres, etc. for grouping (into playlists)
 - create & "sync" playlists with Spotify

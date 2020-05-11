@@ -1,0 +1,242 @@
+[
+    {
+        "id": "5KvOWvM8d5gLYYoHrO3hKP",
+        "name": "Mellow Mood",
+        "artists": [
+            {
+                "id": "0HED7cXMsNbjeqjYNyskFU",
+                "name": "Soul Sugar"
+            }
+        ],
+        "duration_ms": 266680
+    },
+    {
+        "id": "1MFnqUKLabQHF4pGYTeKBQ",
+        "name": "African Dance",
+        "artists": [
+            {
+                "id": "6RRckLnbfvSsC31SYgHLNF",
+                "name": "Jack Sels"
+            }
+        ],
+        "duration_ms": 129826
+    },
+    {
+        "id": "1Bqxrcrx2q1nrHDn4aWTV4",
+        "name": "Glory of Love",
+        "artists": [
+            {
+                "id": "6HwigzRpuWoCZDqMOQc5eu",
+                "name": "Big Bill Broonzy"
+            }
+        ],
+        "duration_ms": 203533
+    },
+    {
+        "id": "6zWRMKCGOS9rMTua8cP6VA",
+        "name": "You Know What It's About",
+        "artists": [
+            {
+                "id": "15S4rchXnFc8L2plJFAGXg",
+                "name": "Flow Tribe"
+            },
+            {
+                "id": "0fbFfVckGKsDbAfYnB5mD1",
+                "name": "Mannie Fresh"
+            }
+        ],
+        "duration_ms": 240457
+    },
+    {
+        "id": "2ENBaEOC0Jgi2au9Jt7y7d",
+        "name": "Feel Right (feat. Mystikal)",
+        "artists": [
+            {
+                "id": "3hv9jJF3adDNsBSIQDqcjp",
+                "name": "Mark Ronson"
+            },
+            {
+                "id": "3LIJJJkO7R5RasRwt7xIn5",
+                "name": "Mystikal"
+            }
+        ],
+        "duration_ms": 222546
+    },
+    {
+        "id": "6mBFwb2YgzTH1ABhLE8vrX",
+        "name": "All the Things You Are",
+        "artists": [
+            {
+                "id": "7M6Meoc3uCzIyRP7V8HQQY",
+                "name": "Pasquale Grasso"
+            }
+        ],
+        "duration_ms": 306082
+    },
+    {
+        "id": "0prR9CeBTt04Q4ZbCMeS2M",
+        "name": "Sophisticated Lady",
+        "artists": [
+            {
+                "id": "7M6Meoc3uCzIyRP7V8HQQY",
+                "name": "Pasquale Grasso"
+            }
+        ],
+        "duration_ms": 230568
+    },
+    {
+        "id": "2QXJyAsDXrRfxhJyoNNjCA",
+        "name": "Rosita",
+        "artists": [
+            {
+                "id": "0JM134st8VY7Ld9T2wQiH0",
+                "name": "Coleman Hawkins"
+            },
+            {
+                "id": "34W7ZCX0LZeJd8q6boKGOk",
+                "name": "Ben Webster"
+            }
+        ],
+        "duration_ms": 302277
+    },
+    {
+        "id": "4uYwlMp841PLJmj1gJJwIq",
+        "name": "Lay, Lady, Lay",
+        "artists": [
+            {
+                "id": "74ASZWbe4lXaubB36ztrGX",
+                "name": "Bob Dylan"
+            }
+        ],
+        "duration_ms": 197093
+    },
+    {
+        "id": "4K1imZQQ0yKtJ40vGmUajS",
+        "name": "Girl from the North Country",
+        "artists": [
+            {
+                "id": "74ASZWbe4lXaubB36ztrGX",
+                "name": "Bob Dylan"
+            },
+            {
+                "id": "6kACVPfCOnqzgfEF5ryl0x",
+                "name": "Johnny Cash"
+            }
+        ],
+        "duration_ms": 220400
+    },
+    {
+        "id": "5HxaRsnKOw5kVzoTXK42gD",
+        "name": "Is Your Love in Vain?",
+        "artists": [
+            {
+                "id": "74ASZWbe4lXaubB36ztrGX",
+                "name": "Bob Dylan"
+            }
+        ],
+        "duration_ms": 271893
+    },
+    {
+        "id": "3DJbKxWXr0gSPLsS1M3EBA",
+        "name": "No Jive (Album Version)",
+        "artists": [
+            {
+                "id": "0WLS16S6MJvMgWXrUezleN",
+                "name": "De-Phazz"
+            }
+        ],
+        "duration_ms": 275133
+    },
+    {
+        "id": "0rwMJGtHC42QAmi7iGtQgi",
+        "name": "Hero Dead and Gone (Radio Swing Mix)",
+        "artists": [
+            {
+                "id": "0WLS16S6MJvMgWXrUezleN",
+                "name": "De-Phazz"
+            }
+        ],
+        "duration_ms": 239280
+    },
+    {
+        "id": "6e49wc8HXduWnzYcz6a7aO",
+        "name": "Dirty Funk",
+        "artists": [
+            {
+                "id": "1bXvCJUlFp4OJi89vZnNVI",
+                "name": "John Milk"
+            }
+        ],
+        "duration_ms": 173267
+    },
+    {
+        "id": "4sglxbQGHLEyrHMmQUhsMj",
+        "name": "Chica",
+        "artists": [
+            {
+                "id": "3vGuEMEIywfiyl9IKzCZ4c",
+                "name": "Philippe Baden Powell"
+            }
+        ],
+        "duration_ms": 199680
+    },
+    {
+        "id": "20vupKwM82QPa58MqGmF9J",
+        "name": "O Caminho Do Bem",
+        "artists": [
+            {
+                "id": "0jOs0wnXCu1bGGP7kh5uIu",
+                "name": "Tim Maia"
+            }
+        ],
+        "duration_ms": 366186
+    },
+    {
+        "id": "6SgVfpDBuqwuTicIPVHK8K",
+        "name": "Treaty",
+        "artists": [
+            {
+                "id": "5l8VQNuIg0turYE1VtM9zV",
+                "name": "Leonard Cohen"
+            }
+        ],
+        "duration_ms": 242333
+    },
+    {
+        "id": "4jLYRhiEb97qz0HiNnNw11",
+        "name": "In Love",
+        "artists": [
+            {
+                "id": "1luwEMAkbRJ8aUfWEtFft4",
+                "name": "Henkel"
+            }
+        ],
+        "duration_ms": 260519
+    },
+    {
+        "id": "2czuVmy6yNCgMWukUgWF97",
+        "name": "Our Generation (Re-Edit) [feat. Ernie Hines]",
+        "artists": [
+            {
+                "id": "63NJf4MSV6H56QfpEkUZoy",
+                "name": "DJ Nu-Mark"
+            },
+            {
+                "id": "32riwBfUK0FUqWeNGkwIRW",
+                "name": "Ernie Hines"
+            }
+        ],
+        "duration_ms": 242288
+    },
+    {
+        "id": "0ZkSEVvP9SWIRdZUkZUghH",
+        "name": "99",
+        "artists": [
+            {
+                "id": "1fwuUuFbqXJx3B17PUhFCE",
+                "name": "Hollie Cook"
+            }
+        ],
+        "duration_ms": 383715
+    }
+]

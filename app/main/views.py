@@ -13,6 +13,6 @@ def index():
         print("Button pressed")
         spotify_library = spotify.import_spotify_library()
         print(spotify_library)
-        library.refresh_from_spotify(spotify_library)
+        library.lib.refresh_from_spotify(spotify_library)
         return redirect(url_for('.index'))
     return render_template('index.html', form=form)
