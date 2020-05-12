@@ -1,5 +1,9 @@
 {% extends "index.html" %}
 
+{% macro format_duration(millis) -%}
+    {{ (((millis/(1000*60))|round)%60)|int }}:{{ '{:>02d}'.format((((millis/1000)|round)%60)|int) }}
+{%- endmacro %}
+
 {% block list_content %}
     <ul class="nav nav-tabs nav-justified">
         <li role="presentation" class="active"><a href="">Saved Tracks</a></li>
@@ -11,7 +15,7 @@
         <thead>
             <th>Track Name</th>
             <th>Track Artists</th>
-            <th>Duration (ms)</th>
+            <th class="text-right">Duration (ms)</th>
         </thead>
         <tbody>
             {% for track in all_tracks %}
@@ -20,7 +24,7 @@
                     <td>{% for artist in track.artists %}
                         {{ artist.name }}{% if not loop.last %}, {% endif %}
                     {% endfor %}</td>
-                    <td>{{ track.duration_ms }}</td>
+                    <td class="text-right">{{ format_duration(track.duration_ms) }}</td>
                 </tr>
             {% endfor %}
         </tbody>
