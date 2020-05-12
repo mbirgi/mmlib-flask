@@ -1,0 +1,28 @@
+{% extends "index.html" %}
+
+{% block list_content %}
+    <ul class="nav nav-tabs nav-justified">
+        <li role="presentation" class="active"><a href="">Saved Tracks</a></li>
+        <li role="presentation"><a href="#">Saved Albums</a></li>
+        <li role="presentation"><a href="#">Saved Playlists</a></li>
+        <li role="presentation"><a href="#">All Tracks</a></li>
+    </ul>
+    <table class="table table-hover table-bordered table-condensed">
+        <thead>
+            <th>Track Name</th>
+            <th>Track Artists</th>
+            <th>Duration (ms)</th>
+        </thead>
+        <tbody>
+            {% for track in all_tracks %}
+                <tr>
+                    <td>{{ track.name }}</td>
+                    <td>{% for artist in track.artists %}
+                        {{ artist.name }}{% if not loop.last %}, {% endif %}
+                    {% endfor %}</td>
+                    <td>{{ track.duration_ms }}</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}

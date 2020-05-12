@@ -1,3 +1,3 @@
-from .file_json import JSONLibrary
+from .json_library import JSONLibrary
 
-lib = JSONLibrary()
+library = JSONLibrary()

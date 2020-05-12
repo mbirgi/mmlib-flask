@@ -1,12 +1,23 @@
 {% extends "base.html" %}
 {% import "bootstrap/wtf.html" as wtf %}
 
-<!--{% block title %}Memo's Music Library{% endblock %}-->
-
 {% block page_content %}
-{#    <div class="page-header">#}
-{#        <h1>Spotify</h1>#}
-{#    </div>#}
-{#    <div>Click the button to import the Spotify Library (may take a while!)</div>#}
-    {{ wtf.quick_form(form) }}
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <h3 class="panel-title">Update library from Spotify</h3>
+        </div>
+        <div class="panel-body">
+            Last updated: ...
+            <p></p>
+            {{ wtf.quick_form(form) }}
+        </div>
+    </div>
+    {% block list_content %}
+        <ul class="nav nav-tabs nav-justified">
+            <li role="presentation"><a href="{{ url_for('main.saved_tracks_list') }}">Saved Tracks</a></li>
+            <li role="presentation"><a href="#">Saved Albums</a></li>
+            <li role="presentation"><a href="#">Saved Playlists</a></li>
+            <li role="presentation"><a href="#">All Tracks</a></li>
+        </ul>
+    {% endblock %}
 {% endblock %}

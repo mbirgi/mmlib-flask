@@ -16,6 +16,9 @@ class JSONLibrary():
         self.saved_albums = self._load_items(self.SPOTIFY_SAVED_ALBUMS_DB)
         self.saved_playlists = self._load_items(self.SPOTIFY_SAVED_PLAYLISTS_DB)
 
+    def get_all_tracks(self):
+        return self.library
+
     def _update_saved_tracks(self, fetched_tracks):
         if not fetched_tracks: return
         # write fetched tracks to spotify tracks db:

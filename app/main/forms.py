@@ -1,8 +1,8 @@
 from flask_wtf import FlaskForm
-from wtforms import StringField, SubmitField
+from wtforms import Label, SubmitField
 from wtforms.validators import DataRequired
 
 
-class SpotifyForm(FlaskForm):
-    # name = StringField('What is your name?', validators=[DataRequired()])
-    refresh_from_spotify = SubmitField('Refresh Spotify Library')
+class RefreshSpotifyForm(FlaskForm):
+    # label = Label(field_id='refresh', text='hello')
+    refresh = SubmitField(label='Refresh', id='refresh')
