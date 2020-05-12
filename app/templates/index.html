@@ -7,7 +7,7 @@
             <h3 class="panel-title">Update library from Spotify</h3>
         </div>
         <div class="panel-body">
-            Last updated: ...
+            Last updated: {{ moment(current_time).format('LLL') }}
             <p></p>
             {{ wtf.quick_form(form) }}
         </div>

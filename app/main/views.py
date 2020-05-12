@@ -1,3 +1,5 @@
+from datetime import datetime
+
 from flask import render_template, redirect, url_for
 
 from . import main
@@ -15,7 +17,8 @@ def index():
         print(spotify_library)
         library.refresh_from_spotify(spotify_library)
         return redirect(url_for('.index'))
-    return render_template('index.html', form=form)
+    return render_template('index.html', form=form, current_time=datetime.utcnow())
+
 
 @main.route('/saved_tracks', methods=['GET', 'POST'])
 def saved_tracks_list():
@@ -26,4 +29,5 @@ def saved_tracks_list():
         print(spotify_library)
         library.refresh_from_spotify(spotify_library)
         return redirect(url_for('.index'))
-    return render_template('saved_tracks_list.html', form=form, all_tracks=library.get_all_tracks())
+    return render_template('saved_tracks_list.html', form=form, all_tracks=library.get_all_tracks(),
+                           current_time=datetime.utcnow())
