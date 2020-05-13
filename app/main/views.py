@@ -15,9 +15,9 @@ def home():
         print("Button pressed")
         spotify_library = spotify.import_spotify_library()
         print(spotify_library)
-        library.refresh_from_spotify(spotify_library)
+        lib.refresh_from_spotify(spotify_library)
         return redirect(url_for('.home'))
-    return render_template('home.html', form=form, current_time=datetime.utcnow())
+    return render_template('home.html', form=form, last_import=lib.get_last_import_dt())
 
 
 @main.route('/library', methods=['GET', 'POST'])
