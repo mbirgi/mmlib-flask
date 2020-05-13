@@ -12,12 +12,4 @@
             {{ wtf.quick_form(form) }}
         </div>
     </div>
-    {% block list_content %}
-        <ul class="nav nav-tabs nav-justified">
-            <li role="presentation"><a href="{{ url_for('main.saved_tracks_list') }}">Saved Tracks</a></li>
-            <li role="presentation"><a href="#">Saved Albums</a></li>
-            <li role="presentation"><a href="#">Saved Playlists</a></li>
-            <li role="presentation"><a href="#">All Tracks</a></li>
-        </ul>
-    {% endblock %}
 {% endblock %}

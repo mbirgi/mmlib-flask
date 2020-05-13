@@ -16,35 +16,17 @@ class JSONLibrary():
         self.saved_albums = self._load_items(self.SPOTIFY_SAVED_ALBUMS_DB)
         self.saved_playlists = self._load_items(self.SPOTIFY_SAVED_PLAYLISTS_DB)
 
-    def get_all_tracks(self):
+    def get_all(self):
         return self.library
 
-    def _update_saved_tracks(self, fetched_tracks):
-        if not fetched_tracks: return
-        # write fetched tracks to spotify tracks db:
-        self._save_items(fetched_tracks, self.SPOTIFY_SAVED_TRACKS_DB)
-        # update tracks in local library:
-        fetched_track_ids = [track['id'] for track in fetched_tracks]
-        library_saved_track_ids = [track['id'] for track in self.library if track['is_saved_track']]
-        deletable_track_ids = [id for id in library_saved_track_ids if id not in fetched_track_ids]
-        for id in deletable_track_ids:
-            existing_track = next(track for track in self.library if track['id'] == id)
-            existing_track['is_saved_track'] = False
-        additional_track_ids = [id for id in fetched_track_ids if id not in library_saved_track_ids]
-        for id in additional_track_ids:
-            additional_track = next(track for track in fetched_tracks if track['id'] == id)
-            additional_track['is_saved_track'] = True
-            self.library.append(additional_track)
-        self._save_items(self.library, self.LIBRARY_DB)
-        # for fetched_track in fetched_tracks:
-        #     existing_track = next((track for track in library if track['id'] == fetched_track['id']))
-        #     if existing_track and existing_track.is_saved_track == False:
-        #         existing_track.is_saved_track = True
-        #     else:
-        #         fetched_track['is_saved_track'] = True
-        #         library
-        #
-        # # check for existing saved tracks that are no more in the spotify library
+    def get_saved_tracks(self):
+        return self.saved_tracks
+
+    def get_saved_albums(self):
+        return self.saved_albums
+
+    def get_saved_playlists(self):
+        return self.saved_playlists
 
     def _init_files(self):
         if not os.path.exists(self.DATA_FOLDER):
@@ -66,13 +48,32 @@ class JSONLibrary():
 
     def refresh_from_spotify(self, spotify_library):
         self._update_saved_tracks(spotify_library['saved_tracks'])
-        # _update_saved_albums(spotify_library['saved_albums'])
-        # update saved albums
-        # update playlists
-        # delete no more needed tracks
-        # get audio features for new tracks
+        self._update_saved_albums(spotify_library['saved_albums'])
+        self._update_saved_playlists(spotify_library['saved_playlists'])
 
+    def _update_saved_tracks(self, fetched_tracks):
+        if not fetched_tracks: return
+        # write fetched tracks to spotify tracks db:
+        self._save_items(fetched_tracks, self.SPOTIFY_SAVED_TRACKS_DB)
+        # update tracks in local library:
+        fetched_track_ids = [track['id'] for track in fetched_tracks]
+        library_saved_track_ids = [track['id'] for track in self.library if track['is_saved_track']]
+        deletable_track_ids = [id for id in library_saved_track_ids if id not in fetched_track_ids]
+        for id in deletable_track_ids:
+            existing_track = next(track for track in self.library if track['id'] == id)
+            existing_track['is_saved_track'] = False
+        additional_track_ids = [id for id in fetched_track_ids if id not in library_saved_track_ids]
+        for id in additional_track_ids:
+            additional_track = next(track for track in fetched_tracks if track['id'] == id)
+            additional_track['is_saved_track'] = True
+            self.library.append(additional_track)
+        self._save_items(self.library, self.LIBRARY_DB)
 
+    def _update_saved_albums(self, param):
+        pass
+
+    def _update_saved_playlists(self, param):
+        pass
 
 #     existing_tracks = Track.query.filter_by(is_saved_track=True).all()
 #     deleted_tracks = [track for track in existing_tracks if track not in fetched_tracks]

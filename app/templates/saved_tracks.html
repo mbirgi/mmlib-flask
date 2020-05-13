@@ -1,16 +1,10 @@
-{% extends "index.html" %}
+{% extends "base.html" %}
 
 {% macro format_duration(millis) -%}
     {{ (((millis/(1000*60))|round)%60)|int }}:{{ '{:>02d}'.format((((millis/1000)|round)%60)|int) }}
 {%- endmacro %}
 
-{% block list_content %}
-    <ul class="nav nav-tabs nav-justified">
-        <li role="presentation" class="active"><a href="">Saved Tracks</a></li>
-        <li role="presentation"><a href="#">Saved Albums</a></li>
-        <li role="presentation"><a href="#">Saved Playlists</a></li>
-        <li role="presentation"><a href="#">All Tracks</a></li>
-    </ul>
+{% block page_content %}
     <table class="table table-hover table-bordered table-condensed">
         <thead>
             <th>Track Name</th>
@@ -18,7 +12,7 @@
             <th class="text-right">Duration (ms)</th>
         </thead>
         <tbody>
-            {% for track in all_tracks %}
+            {% for track in saved_tracks %}
                 <tr>
                     <td>{{ track.name }}</td>
                     <td>{% for artist in track.artists %}
