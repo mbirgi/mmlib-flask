@@ -17,7 +17,17 @@ def home():
         print(spotify_library)
         lib.refresh_from_spotify(spotify_library)
         return redirect(url_for('.home'))
-    return render_template('home.html', form=form, last_import=lib.get_last_import_dt())
+    num_tracks = len(lib.get_saved_tracks())
+    num_albums = len(lib.get_saved_albums())
+    num_playlists = len(lib.get_saved_playlists())
+    context = {
+        'form': form,
+        'num_tracks': num_tracks,
+        'num_albums': num_albums,
+        'num_playlists': num_playlists,
+        'last_import': lib.get_last_import_dt()
+    }
+    return render_template('home.html', context=context)
 
 
 @main.route('/library', methods=['GET', 'POST'])
