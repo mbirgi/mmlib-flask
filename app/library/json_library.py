@@ -58,15 +58,19 @@ class JSONLibrary():
 
     def refresh_from_spotify(self, spotify_library):
         self._update_saved_tracks(spotify_library['saved_tracks'])
-        # self._update_saved_albums(spotify_library['saved_albums'])
-        # self._update_saved_playlists(spotify_library['saved_playlists'])
+        self._update_saved_albums(spotify_library['saved_albums'])
+        self._update_saved_playlists(spotify_library['playlists'])
         self._save_last_import_dt()
 
     def _update_saved_tracks(self, fetched_tracks):
         if not fetched_tracks: return
         # write fetched tracks to spotify tracks db:
         self._save_items(fetched_tracks, self._db_files['saved_tracks'])
+        self._saved_tracks = fetched_tracks
         # update tracks in local library:
+        self._update_library_tracks(fetched_tracks)
+
+    def _update_library_tracks(self, fetched_tracks):
         fetched_track_ids = [track['id'] for track in fetched_tracks]
         library_saved_track_ids = [track['id'] for track in self._library if track['is_saved_track']]
         deletable_track_ids = [id for id in library_saved_track_ids if id not in fetched_track_ids]
@@ -80,8 +84,27 @@ class JSONLibrary():
             self._library.append(additional_track)
         self._save_items(self._library, self._db_files['library'])
 
-    def _update_saved_albums(self, param):
-        pass
+    def _update_saved_albums(self, fetched_albums):
+        if not fetched_albums: return
+        print(fetched_albums[0])
+        self._save_items(fetched_albums, self._db_files['saved_albums'])
+        self._saved_albums = fetched_albums
+        fetched_tracks = []
+        for album in fetched_albums:
+            fetched_tracks.extend([track for track in album['tracks']])
+        self._update_library_tracks(fetched_tracks)
 
-    def _update_saved_playlists(self, param):
-        pass
+    def _update_saved_playlists(self, fetched_playlists):
+        if not fetched_playlists: return
+        print(fetched_playlists[0])
+        self._save_items(fetched_playlists, self._db_files['saved_playlists'])
+        self._saved_playlists = fetched_playlists
+        fetched_tracks = []
+        for playlist in fetched_playlists:
+            fetched_tracks.extend([track for track in playlist['tracks']])
+        self._update_library_tracks(fetched_tracks)
+
+    def save_track_tags(self, track_id, track_tags):
+        track = next(track for track in self._library if track['id'] == track_id)
+        track['tags'] = track_tags
+        self._save_items(self._library, self._db_files['library'])

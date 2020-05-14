@@ -8,7 +8,8 @@
                 "name": "Soul Sugar"
             }
         ],
-        "duration_ms": 266680
+        "duration_ms": 266680,
+        "track_number": 6
     },
     {
         "id": "1MFnqUKLabQHF4pGYTeKBQ",
@@ -19,7 +20,8 @@
                 "name": "Jack Sels"
             }
         ],
-        "duration_ms": 129826
+        "duration_ms": 129826,
+        "track_number": 6
     },
     {
         "id": "1Bqxrcrx2q1nrHDn4aWTV4",
@@ -30,7 +32,8 @@
                 "name": "Big Bill Broonzy"
             }
         ],
-        "duration_ms": 203533
+        "duration_ms": 203533,
+        "track_number": 11
     },
     {
         "id": "6zWRMKCGOS9rMTua8cP6VA",
@@ -45,7 +48,8 @@
                 "name": "Mannie Fresh"
             }
         ],
-        "duration_ms": 240457
+        "duration_ms": 240457,
+        "track_number": 6
     },
     {
         "id": "2ENBaEOC0Jgi2au9Jt7y7d",
@@ -60,7 +64,8 @@
                 "name": "Mystikal"
             }
         ],
-        "duration_ms": 222546
+        "duration_ms": 222546,
+        "track_number": 3
     },
     {
         "id": "6mBFwb2YgzTH1ABhLE8vrX",
@@ -71,7 +76,8 @@
                 "name": "Pasquale Grasso"
             }
         ],
-        "duration_ms": 306082
+        "duration_ms": 306082,
+        "track_number": 1
     },
     {
         "id": "0prR9CeBTt04Q4ZbCMeS2M",
@@ -82,7 +88,8 @@
                 "name": "Pasquale Grasso"
             }
         ],
-        "duration_ms": 230568
+        "duration_ms": 230568,
+        "track_number": 6
     },
     {
         "id": "2QXJyAsDXrRfxhJyoNNjCA",
@@ -97,7 +104,8 @@
                 "name": "Ben Webster"
             }
         ],
-        "duration_ms": 302277
+        "duration_ms": 302277,
+        "track_number": 3
     },
     {
         "id": "4uYwlMp841PLJmj1gJJwIq",
@@ -108,7 +116,8 @@
                 "name": "Bob Dylan"
             }
         ],
-        "duration_ms": 197093
+        "duration_ms": 197093,
+        "track_number": 6
     },
     {
         "id": "4K1imZQQ0yKtJ40vGmUajS",
@@ -123,7 +132,8 @@
                 "name": "Johnny Cash"
             }
         ],
-        "duration_ms": 220400
+        "duration_ms": 220400,
+        "track_number": 1
     },
     {
         "id": "5HxaRsnKOw5kVzoTXK42gD",
@@ -134,7 +144,8 @@
                 "name": "Bob Dylan"
             }
         ],
-        "duration_ms": 271893
+        "duration_ms": 271893,
+        "track_number": 5
     },
     {
         "id": "3DJbKxWXr0gSPLsS1M3EBA",
@@ -145,7 +156,8 @@
                 "name": "De-Phazz"
             }
         ],
-        "duration_ms": 275133
+        "duration_ms": 275133,
+        "track_number": 11
     },
     {
         "id": "0rwMJGtHC42QAmi7iGtQgi",
@@ -156,7 +168,8 @@
                 "name": "De-Phazz"
             }
         ],
-        "duration_ms": 239280
+        "duration_ms": 239280,
+        "track_number": 10
     },
     {
         "id": "6e49wc8HXduWnzYcz6a7aO",
@@ -167,7 +180,8 @@
                 "name": "John Milk"
             }
         ],
-        "duration_ms": 173267
+        "duration_ms": 173267,
+        "track_number": 7
     },
     {
         "id": "4sglxbQGHLEyrHMmQUhsMj",
@@ -178,7 +192,8 @@
                 "name": "Philippe Baden Powell"
             }
         ],
-        "duration_ms": 199680
+        "duration_ms": 199680,
+        "track_number": 5
     },
     {
         "id": "20vupKwM82QPa58MqGmF9J",
@@ -189,7 +204,8 @@
                 "name": "Tim Maia"
             }
         ],
-        "duration_ms": 366186
+        "duration_ms": 366186,
+        "track_number": 3
     },
     {
         "id": "6SgVfpDBuqwuTicIPVHK8K",
@@ -200,7 +216,8 @@
                 "name": "Leonard Cohen"
             }
         ],
-        "duration_ms": 242333
+        "duration_ms": 242333,
+        "track_number": 2
     },
     {
         "id": "4jLYRhiEb97qz0HiNnNw11",
@@ -211,7 +228,8 @@
                 "name": "Henkel"
             }
         ],
-        "duration_ms": 260519
+        "duration_ms": 260519,
+        "track_number": 1
     },
     {
         "id": "2czuVmy6yNCgMWukUgWF97",
@@ -226,7 +244,8 @@
                 "name": "Ernie Hines"
             }
         ],
-        "duration_ms": 242288
+        "duration_ms": 242288,
+        "track_number": 4
     },
     {
         "id": "0ZkSEVvP9SWIRdZUkZUghH",
@@ -237,6 +256,7 @@
                 "name": "Hollie Cook"
             }
         ],
-        "duration_ms": 383715
+        "duration_ms": 383715,
+        "track_number": 2
     }
 ]

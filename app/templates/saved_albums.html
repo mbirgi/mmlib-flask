@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+
+{% block page_content %}
+    <div class="page-header">
+        <h1>Spotify Saved Albums</h1>
+    </div>
+    <table class="table table-hover table-bordered table-condensed">
+        <thead>
+            <th>Name</th>
+            <th>Artists</th>
+            <th class="text-right">Number of Tracks</th>
+        </thead>
+        <tbody>
+            {% for album in albums %}
+                <tr>
+                    <td>{{ album.name }}</td>
+                    <td>{% for artist in album.artists %}
+                        {{ artist.name }}{% if not loop.last %}, {% endif %}
+                    {% endfor %}</td>
+                    <td class="text-right">{{ album.total_tracks }}</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}

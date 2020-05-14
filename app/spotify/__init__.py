@@ -44,7 +44,7 @@ class Spotify():
             while results['next']:
                 results = self.instance.next(results)
                 tracks.extend(results['items'])
-        return self._sanitize_tracks(tracks)
+        return self._sanitize_tracks([track['track'] for track in tracks])
 
     def get_saved_albums(self):
         results = self.instance.current_user_saved_albums(limit=50)
@@ -68,10 +68,11 @@ class Spotify():
         sanitized_tracks = []
         for track in tracks:
             sanitized_track = {
-                "id": track['track']['id'],
-                "name": track['track']['name'],
-                "artists": [{'id': artist['id'], 'name': artist['name']} for artist in track['track']['artists']],
-                "duration_ms": track['track']['duration_ms']
+                "id": track['id'],
+                "name": track['name'],
+                "artists": [{'id': artist['id'], 'name': artist['name']} for artist in track['artists']],
+                "duration_ms": track['duration_ms'],
+                'track_number': track.get('track_number'),
             }
             sanitized_tracks.append(sanitized_track)
         return sanitized_tracks
@@ -79,18 +80,13 @@ class Spotify():
     def _sanitize_albums(self, albums):
         sanitized_albums = []
         for album in albums:
+            sanitized_tracks = self._sanitize_tracks(album['album']['tracks']['items'])
             sanitized_album = {
                 "id": album['album']['id'],
                 "name": album['album']['name'],
                 "artists": [{'id': artist['id'], 'name': artist['name']} for artist in album['album']['artists']],
                 "total_tracks": album['album']['total_tracks'],
-                "tracks": [{
-                    'id': track['id'],
-                    'name': track['name'],
-                    'artists': [{'id': artist['id'], 'name': artist['name']} for artist in track['artists']],
-                    'track_number': track['track_number'],
-                    'duration_ms': track['duration_ms']
-                } for track in album['album']['tracks']['items']]
+                "tracks": sanitized_tracks,
             }
             sanitized_albums.append(sanitized_album)
         return sanitized_albums
@@ -98,24 +94,24 @@ class Spotify():
     def _sanitize_playlists(self, playlists):
         sanitized_playlists = []
         for playlist in playlists:
-            track_ids = self._get_playlist_track_ids(playlist['id'])
+            tracks = self._get_playlist_tracks(playlist['id'])
             sanitized_playlist = {
                 "id": playlist['id'],
                 "name": playlist['name'],
                 "description": playlist['description'],
-                "tracks": track_ids,
+                "tracks": self._sanitize_tracks(tracks),
             }
             sanitized_playlists.append(sanitized_playlist)
         return sanitized_playlists
 
-    def _get_playlist_track_ids(self, playlist_id):
+    def _get_playlist_tracks(self, playlist_id):
         results = self.instance.playlist_tracks(playlist_id)
         tracks = results['items']
         if not self.dev:
             while results['next']:
                 results = self.instance.next(results)
                 tracks.extend(results['items'])
-        return [track['track']['id'] for track in tracks]
+        return [track['track'] for track in tracks]
 
 # def get_genres(track, spotipy_instance):
 #     artist_id = track['artists'][0]['id']

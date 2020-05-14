@@ -1,8 +1,13 @@
 from flask_wtf import FlaskForm
-from wtforms import Label, SubmitField
-from wtforms.validators import DataRequired
+from wtforms import SubmitField, StringField, validators
 
 
 class RefreshSpotifyForm(FlaskForm):
-    # label = Label(field_id='refresh', text='hello')
     refresh = SubmitField(label='Refresh', id='refresh')
+
+
+class EditTagsForm(FlaskForm):
+    existing_tags = StringField('Existing Tags')
+    new_tag = StringField('New Tag')
+    save = SubmitField(label='Save', id='save')
+    cancel = SubmitField(label='Cancel', id='cancel')
