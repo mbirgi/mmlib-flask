@@ -13,7 +13,8 @@ class JSONLibrary():
         'admin': 'admin.json',
     }
 
-    def __init__(self):
+    def __init__(self, dev=False):
+        self._dev = dev
         self._init_files()
         self._library = self._load_items(self._db_files['library'])
         self._saved_tracks = self._load_items(self._db_files['saved_tracks'])

@@ -2,11 +2,12 @@ import os
 
 import spotipy
 import spotipy.util
-from dotenv import load_dotenv
+# from dotenv import load_dotenv
 
+_dev = True
 
 def import_spotify_library():
-    sp = Spotify()
+    sp = Spotify(dev=_dev)
     saved_tracks = sp.get_saved_tracks()
     saved_albums = sp.get_saved_albums()
     playlists = sp.get_saved_playlists()
@@ -16,51 +17,53 @@ def import_spotify_library():
         "playlists": playlists
     }
 
+
+def _login(username, scope):
+    spotify_auth_params = {
+        'client_id': os.getenv('CLIENT_ID'),
+        'client_secret': os.getenv('CLIENT_SECRET'),
+        'redirect_uri': os.getenv('REDIRECT_URI'),
+        'scope': scope
+    }
+    try:
+        token = spotipy.util.prompt_for_user_token(username, **spotify_auth_params)
+    except:
+        os.remove(f'.cache-{username}')
+        token = spotipy.util.prompt_for_user_token(username, **spotify_auth_params)
+    return spotipy.Spotify(auth=token)
+
+
 class Spotify():
-    def __init__(self, username='mbirgi', scope='user-library-read', dev=True):
-        load_dotenv()
-        self.dev = dev
-        self.instance = self.login(username, scope)
+    def __init__(self, username='mbirgi', scope='user-library-read', dev=False):
+        # load_dotenv()
+        self._dev = dev
+        self._instance = _login(username, scope)
         # self.market = 'CH'
 
-    def login(self, username, scope):
-        spotify_auth_params = {
-            'client_id': os.getenv('CLIENT_ID'),
-            'client_secret': os.getenv('CLIENT_SECRET'),
-            'redirect_uri': os.getenv('REDIRECT_URI'),
-            'scope': scope
-        }
-        try:
-            token = spotipy.util.prompt_for_user_token(username, **spotify_auth_params)
-        except:
-            os.remove(f'.cache-{username}')
-            token = spotipy.util.prompt_for_user_token(username, **spotify_auth_params)
-        return spotipy.Spotify(auth=token)
-
     def get_saved_tracks(self):
-        results = self.instance.current_user_saved_tracks()
+        results = self._instance.current_user_saved_tracks()
         tracks = results['items']
-        if not self.dev:
+        if not self._dev:
             while results['next']:
-                results = self.instance.next(results)
+                results = self._instance.next(results)
                 tracks.extend(results['items'])
         return self._sanitize_tracks([track['track'] for track in tracks])
 
     def get_saved_albums(self):
-        results = self.instance.current_user_saved_albums(limit=50)
+        results = self._instance.current_user_saved_albums(limit=50)
         albums = results['items']
-        if not self.dev:
+        if not self._dev:
             while results['next']:
-                results = self.instance.next(results)
+                results = self._instance.next(results)
                 albums.extend(results['items'])
         return self._sanitize_albums(albums)
 
     def get_saved_playlists(self):
-        results = self.instance.current_user_playlists(limit=50)
+        results = self._instance.current_user_playlists(limit=50)
         playlists = results['items']
-        if not self.dev:
+        if not self._dev:
             while results['next']:
-                results = self.instance.next(results)
+                results = self._instance.next(results)
                 playlists.extend(results['items'])
         return self._sanitize_playlists(playlists)
 
@@ -105,11 +108,11 @@ class Spotify():
         return sanitized_playlists
 
     def _get_playlist_tracks(self, playlist_id):
-        results = self.instance.playlist_tracks(playlist_id)
+        results = self._instance.playlist_tracks(playlist_id)
         tracks = results['items']
-        if not self.dev:
+        if not self._dev:
             while results['next']:
-                results = self.instance.next(results)
+                results = self._instance.next(results)
                 tracks.extend(results['items'])
         return [track['track'] for track in tracks]
 
