@@ -10,7 +10,22 @@
         ],
         "duration_ms": 266680,
         "track_number": 6,
-        "is_saved_track": false
+        "is_saved_track": false,
+        "audio_features": {
+            "danceability": 0.773,
+            "energy": 0.645,
+            "key": 1,
+            "loudness": -10.348,
+            "mode": 1,
+            "speechiness": 0.0427,
+            "acousticness": 0.0831,
+            "instrumentalness": 0.785,
+            "liveness": 0.0823,
+            "valence": 0.699,
+            "tempo": 133.927,
+            "duration_ms": 266680,
+            "time_signature": 4
+        }
     },
     {
         "id": "1MFnqUKLabQHF4pGYTeKBQ",
@@ -23,7 +38,22 @@
         ],
         "duration_ms": 129826,
         "track_number": 6,
-        "is_saved_track": false
+        "is_saved_track": false,
+        "audio_features": {
+            "danceability": 0.667,
+            "energy": 0.504,
+            "key": 10,
+            "loudness": -9.867,
+            "mode": 1,
+            "speechiness": 0.0487,
+            "acousticness": 0.905,
+            "instrumentalness": 0.829,
+            "liveness": 0.109,
+            "valence": 0.782,
+            "tempo": 98.248,
+            "duration_ms": 129827,
+            "time_signature": 4
+        }
     },
     {
         "id": "1Bqxrcrx2q1nrHDn4aWTV4",
@@ -36,7 +66,22 @@
         ],
         "duration_ms": 203533,
         "track_number": 11,
-        "is_saved_track": false
+        "is_saved_track": false,
+        "audio_features": {
+            "danceability": 0.604,
+            "energy": 0.108,
+            "key": 0,
+            "loudness": -19.051,
+            "mode": 1,
+            "speechiness": 0.0421,
+            "acousticness": 0.88,
+            "instrumentalness": 0.0158,
+            "liveness": 0.125,
+            "valence": 0.852,
+            "tempo": 164.702,
+            "duration_ms": 203533,
+            "time_signature": 4
+        }
     },
     {
         "id": "6zWRMKCGOS9rMTua8cP6VA",
@@ -53,7 +98,22 @@
         ],
         "duration_ms": 240457,
         "track_number": 6,
-        "is_saved_track": false
+        "is_saved_track": false,
+        "audio_features": {
+            "danceability": 0.833,
+            "energy": 0.928,
+            "key": 6,
+            "loudness": -3.312,
+            "mode": 0,
+            "speechiness": 0.146,
+            "acousticness": 0.402,
+            "instrumentalness": 1.13e-06,
+            "liveness": 0.367,
+            "valence": 0.921,
+            "tempo": 110.979,
+            "duration_ms": 240458,
+            "time_signature": 4
+        }
     },
     {
         "id": "2ENBaEOC0Jgi2au9Jt7y7d",
@@ -70,7 +130,22 @@
         ],
         "duration_ms": 222546,
         "track_number": 3,
-        "is_saved_track": false
+        "is_saved_track": false,
+        "audio_features": {
+            "danceability": 0.854,
+            "energy": 0.798,
+            "key": 11,
+            "loudness": -5.876,
+            "mode": 0,
+            "speechiness": 0.0642,
+            "acousticness": 0.0871,
+            "instrumentalness": 0.000187,
+            "liveness": 0.0271,
+            "valence": 0.861,
+            "tempo": 110.108,
+            "duration_ms": 222547,
+            "time_signature": 4
+        }
     },
     {
         "id": "6mBFwb2YgzTH1ABhLE8vrX",
@@ -83,7 +158,22 @@
         ],
         "duration_ms": 306082,
         "track_number": 1,
-        "is_saved_track": false
+        "is_saved_track": false,
+        "audio_features": {
+            "danceability": 0.428,
+            "energy": 0.0652,
+            "key": 8,
+            "loudness": -22.406,
+            "mode": 1,
+            "speechiness": 0.0484,
+            "acousticness": 0.993,
+            "instrumentalness": 0.957,
+            "liveness": 0.111,
+            "valence": 0.394,
+            "tempo": 80.945,
+            "duration_ms": 306082,
+            "time_signature": 3
+        }
     },
     {
         "id": "0prR9CeBTt04Q4ZbCMeS2M",
@@ -96,7 +186,22 @@
         ],
         "duration_ms": 230568,
         "track_number": 6,
-        "is_saved_track": false
+        "is_saved_track": false,
+        "audio_features": {
+            "danceability": 0.433,
+            "energy": 0.0688,
+            "key": 8,
+            "loudness": -23.488,
+            "mode": 1,
+            "speechiness": 0.0461,
+            "acousticness": 0.993,
+            "instrumentalness": 0.956,
+            "liveness": 0.107,
+            "valence": 0.443,
+            "tempo": 70.715,
+            "duration_ms": 230569,
+            "time_signature": 3
+        }
     },
     {
         "id": "2QXJyAsDXrRfxhJyoNNjCA",
@@ -113,7 +218,22 @@
         ],
         "duration_ms": 302277,
         "track_number": 3,
-        "is_saved_track": false
+        "is_saved_track": false,
+        "audio_features": {
+            "danceability": 0.587,
+            "energy": 0.259,
+            "key": 4,
+            "loudness": -15.805,
+            "mode": 1,
+            "speechiness": 0.0602,
+            "acousticness": 0.902,
+            "instrumentalness": 0.533,
+            "liveness": 0.1,
+            "valence": 0.312,
+            "tempo": 109.827,
+            "duration_ms": 302277,
+            "time_signature": 4
+        }
     },
     {
         "id": "4uYwlMp841PLJmj1gJJwIq",
@@ -126,7 +246,22 @@
         ],
         "duration_ms": 197093,
         "track_number": 6,
-        "is_saved_track": false
+        "is_saved_track": false,
+        "audio_features": {
+            "danceability": 0.52,
+            "energy": 0.179,
+            "key": 11,
+            "loudness": -21.976,
+            "mode": 0,
+            "speechiness": 0.0454,
+            "acousticness": 0.356,
+            "instrumentalness": 0.00344,
+            "liveness": 0.131,
+            "valence": 0.407,
+            "tempo": 155.746,
+            "duration_ms": 197093,
+            "time_signature": 4
+        }
     },
     {
         "id": "4K1imZQQ0yKtJ40vGmUajS",
@@ -143,7 +278,22 @@
         ],
         "duration_ms": 220400,
         "track_number": 1,
-        "is_saved_track": false
+        "is_saved_track": false,
+        "audio_features": {
+            "danceability": 0.607,
+            "energy": 0.142,
+            "key": 7,
+            "loudness": -23.455,
+            "mode": 1,
+            "speechiness": 0.0382,
+            "acousticness": 0.843,
+            "instrumentalness": 0.000197,
+            "liveness": 0.121,
+            "valence": 0.305,
+            "tempo": 118.867,
+            "duration_ms": 220400,
+            "time_signature": 4
+        }
     },
     {
         "id": "5HxaRsnKOw5kVzoTXK42gD",
@@ -156,7 +306,22 @@
         ],
         "duration_ms": 271893,
         "track_number": 5,
-        "is_saved_track": false
+        "is_saved_track": false,
+        "audio_features": {
+            "danceability": 0.336,
+            "energy": 0.444,
+            "key": 2,
+            "loudness": -11.534,
+            "mode": 1,
+            "speechiness": 0.0279,
+            "acousticness": 0.346,
+            "instrumentalness": 0,
+            "liveness": 0.158,
+            "valence": 0.598,
+            "tempo": 164.846,
+            "duration_ms": 271893,
+            "time_signature": 4
+        }
     },
     {
         "id": "3DJbKxWXr0gSPLsS1M3EBA",
@@ -169,7 +334,22 @@
         ],
         "duration_ms": 275133,
         "track_number": 11,
-        "is_saved_track": false
+        "is_saved_track": false,
+        "audio_features": {
+            "danceability": 0.63,
+            "energy": 0.723,
+            "key": 10,
+            "loudness": -9.131,
+            "mode": 0,
+            "speechiness": 0.0264,
+            "acousticness": 0.0999,
+            "instrumentalness": 0.0748,
+            "liveness": 0.0925,
+            "valence": 0.713,
+            "tempo": 98.002,
+            "duration_ms": 275133,
+            "time_signature": 4
+        }
     },
     {
         "id": "0rwMJGtHC42QAmi7iGtQgi",
@@ -182,7 +362,22 @@
         ],
         "duration_ms": 239280,
         "track_number": 10,
-        "is_saved_track": false
+        "is_saved_track": false,
+        "audio_features": {
+            "danceability": 0.885,
+            "energy": 0.665,
+            "key": 10,
+            "loudness": -8.732,
+            "mode": 0,
+            "speechiness": 0.115,
+            "acousticness": 0.071,
+            "instrumentalness": 0,
+            "liveness": 0.0811,
+            "valence": 0.597,
+            "tempo": 105.032,
+            "duration_ms": 239280,
+            "time_signature": 4
+        }
     },
     {
         "id": "6e49wc8HXduWnzYcz6a7aO",
@@ -195,7 +390,22 @@
         ],
         "duration_ms": 173267,
         "track_number": 7,
-        "is_saved_track": false
+        "is_saved_track": false,
+        "audio_features": {
+            "danceability": 0.875,
+            "energy": 0.449,
+            "key": 2,
+            "loudness": -14.864,
+            "mode": 0,
+            "speechiness": 0.0607,
+            "acousticness": 0.127,
+            "instrumentalness": 0.361,
+            "liveness": 0.0621,
+            "valence": 0.934,
+            "tempo": 100.481,
+            "duration_ms": 173268,
+            "time_signature": 4
+        }
     },
     {
         "id": "4sglxbQGHLEyrHMmQUhsMj",
@@ -208,7 +418,22 @@
         ],
         "duration_ms": 199680,
         "track_number": 5,
-        "is_saved_track": false
+        "is_saved_track": false,
+        "audio_features": {
+            "danceability": 0.656,
+            "energy": 0.472,
+            "key": 0,
+            "loudness": -10.657,
+            "mode": 0,
+            "speechiness": 0.0434,
+            "acousticness": 0.25,
+            "instrumentalness": 0.0262,
+            "liveness": 0.103,
+            "valence": 0.512,
+            "tempo": 113.95,
+            "duration_ms": 199680,
+            "time_signature": 4
+        }
     },
     {
         "id": "20vupKwM82QPa58MqGmF9J",
@@ -221,7 +446,22 @@
         ],
         "duration_ms": 366186,
         "track_number": 3,
-        "is_saved_track": false
+        "is_saved_track": false,
+        "audio_features": {
+            "danceability": 0.812,
+            "energy": 0.416,
+            "key": 9,
+            "loudness": -10.998,
+            "mode": 0,
+            "speechiness": 0.0642,
+            "acousticness": 0.268,
+            "instrumentalness": 0.0978,
+            "liveness": 0.115,
+            "valence": 0.893,
+            "tempo": 107.993,
+            "duration_ms": 366187,
+            "time_signature": 4
+        }
     },
     {
         "id": "6SgVfpDBuqwuTicIPVHK8K",
@@ -234,7 +474,22 @@
         ],
         "duration_ms": 242333,
         "track_number": 2,
-        "is_saved_track": false
+        "is_saved_track": false,
+        "audio_features": {
+            "danceability": 0.368,
+            "energy": 0.18,
+            "key": 9,
+            "loudness": -17.869,
+            "mode": 0,
+            "speechiness": 0.0862,
+            "acousticness": 0.824,
+            "instrumentalness": 0.00127,
+            "liveness": 0.106,
+            "valence": 0.14,
+            "tempo": 72.981,
+            "duration_ms": 242333,
+            "time_signature": 1
+        }
     },
     {
         "id": "4jLYRhiEb97qz0HiNnNw11",
@@ -247,7 +502,22 @@
         ],
         "duration_ms": 260519,
         "track_number": 1,
-        "is_saved_track": false
+        "is_saved_track": false,
+        "audio_features": {
+            "danceability": 0.807,
+            "energy": 0.707,
+            "key": 9,
+            "loudness": -7.714,
+            "mode": 0,
+            "speechiness": 0.0462,
+            "acousticness": 0.313,
+            "instrumentalness": 0.897,
+            "liveness": 0.391,
+            "valence": 0.579,
+            "tempo": 101.998,
+            "duration_ms": 260520,
+            "time_signature": 4
+        }
     },
     {
         "id": "2czuVmy6yNCgMWukUgWF97",
@@ -264,7 +534,22 @@
         ],
         "duration_ms": 242288,
         "track_number": 4,
-        "is_saved_track": false
+        "is_saved_track": false,
+        "audio_features": {
+            "danceability": 0.901,
+            "energy": 0.507,
+            "key": 1,
+            "loudness": -5.933,
+            "mode": 1,
+            "speechiness": 0.0683,
+            "acousticness": 0.0138,
+            "instrumentalness": 0.000154,
+            "liveness": 0.086,
+            "valence": 0.799,
+            "tempo": 100.021,
+            "duration_ms": 242289,
+            "time_signature": 4
+        }
     },
     {
         "id": "0ZkSEVvP9SWIRdZUkZUghH",
@@ -277,7 +562,22 @@
         ],
         "duration_ms": 383715,
         "track_number": 2,
-        "is_saved_track": false
+        "is_saved_track": false,
+        "audio_features": {
+            "danceability": 0.823,
+            "energy": 0.583,
+            "key": 10,
+            "loudness": -9.204,
+            "mode": 0,
+            "speechiness": 0.0609,
+            "acousticness": 0.0655,
+            "instrumentalness": 0.121,
+            "liveness": 0.414,
+            "valence": 0.63,
+            "tempo": 127.202,
+            "duration_ms": 383716,
+            "time_signature": 4
+        }
     },
     {
         "id": "1dChLNfqO43MmCpkW3iegQ",
@@ -302,7 +602,22 @@
         ],
         "duration_ms": 167557,
         "track_number": 1,
-        "is_saved_track": false
+        "is_saved_track": false,
+        "audio_features": {
+            "danceability": 0.0792,
+            "energy": 0.0309,
+            "key": 10,
+            "loudness": -22.886,
+            "mode": 1,
+            "speechiness": 0.0404,
+            "acousticness": 0.72,
+            "instrumentalness": 0.868,
+            "liveness": 0.0792,
+            "valence": 0.0494,
+            "tempo": 188.265,
+            "duration_ms": 167558,
+            "time_signature": 3
+        }
     },
     {
         "id": "64M7iyhXEUCMDKmoRuUPYu",
@@ -327,7 +642,22 @@
         ],
         "duration_ms": 190064,
         "track_number": 2,
-        "is_saved_track": false
+        "is_saved_track": false,
+        "audio_features": {
+            "danceability": 0.696,
+            "energy": 0.178,
+            "key": 10,
+            "loudness": -15.363,
+            "mode": 0,
+            "speechiness": 0.0585,
+            "acousticness": 0.483,
+            "instrumentalness": 0.921,
+            "liveness": 0.104,
+            "valence": 0.353,
+            "tempo": 114.805,
+            "duration_ms": 190065,
+            "time_signature": 4
+        }
     },
     {
         "id": "6mNTd6MumAEKggoDyWHzxC",
@@ -352,7 +682,22 @@
         ],
         "duration_ms": 164931,
         "track_number": 3,
-        "is_saved_track": false
+        "is_saved_track": false,
+        "audio_features": {
+            "danceability": 0.205,
+            "energy": 0.191,
+            "key": 10,
+            "loudness": -11.796,
+            "mode": 0,
+            "speechiness": 0.0353,
+            "acousticness": 0.694,
+            "instrumentalness": 0.844,
+            "liveness": 0.625,
+            "valence": 0.0373,
+            "tempo": 117.474,
+            "duration_ms": 164931,
+            "time_signature": 4
+        }
     },
     {
         "id": "2vRDsfYsHoEMfrwvt7bqk8",
@@ -377,7 +722,22 @@
         ],
         "duration_ms": 289572,
         "track_number": 4,
-        "is_saved_track": false
+        "is_saved_track": false,
+        "audio_features": {
+            "danceability": 0.385,
+            "energy": 0.417,
+            "key": 8,
+            "loudness": -11.797,
+            "mode": 1,
+            "speechiness": 0.0493,
+            "acousticness": 0.447,
+            "instrumentalness": 0.575,
+            "liveness": 0.0882,
+            "valence": 0.248,
+            "tempo": 129.558,
+            "duration_ms": 289572,
+            "time_signature": 4
+        }
     },
     {
         "id": "5I88dUKbxr2wyB9A99qs1B",
@@ -402,7 +762,22 @@
         ],
         "duration_ms": 188951,
         "track_number": 5,
-        "is_saved_track": false
+        "is_saved_track": false,
+        "audio_features": {
+            "danceability": 0.225,
+            "energy": 0.25,
+            "key": 5,
+            "loudness": -11.732,
+            "mode": 0,
+            "speechiness": 0.0291,
+            "acousticness": 0.852,
+            "instrumentalness": 0.709,
+            "liveness": 0.107,
+            "valence": 0.175,
+            "tempo": 47.547,
+            "duration_ms": 188952,
+            "time_signature": 4
+        }
     },
     {
         "id": "2TnSADSGkwfLkVPyEmoj9L",
@@ -427,7 +802,22 @@
         ],
         "duration_ms": 205933,
         "track_number": 6,
-        "is_saved_track": false
+        "is_saved_track": false,
+        "audio_features": {
+            "danceability": 0.583,
+            "energy": 0.174,
+            "key": 6,
+            "loudness": -16.248,
+            "mode": 0,
+            "speechiness": 0.0556,
+            "acousticness": 0.777,
+            "instrumentalness": 0.913,
+            "liveness": 0.0686,
+            "valence": 0.227,
+            "tempo": 142.344,
+            "duration_ms": 205934,
+            "time_signature": 4
+        }
     },
     {
         "id": "6ztxOQuOTej6pMEMJAaRRG",
@@ -452,7 +842,22 @@
         ],
         "duration_ms": 190724,
         "track_number": 7,
-        "is_saved_track": false
+        "is_saved_track": false,
+        "audio_features": {
+            "danceability": 0.591,
+            "energy": 0.15,
+            "key": 10,
+            "loudness": -14.466,
+            "mode": 0,
+            "speechiness": 0.0321,
+            "acousticness": 0.0693,
+            "instrumentalness": 0.82,
+            "liveness": 0.104,
+            "valence": 0.0885,
+            "tempo": 119.461,
+            "duration_ms": 190725,
+            "time_signature": 4
+        }
     },
     {
         "id": "6xQgpQdm9qQrKbh6qsjj62",
@@ -477,7 +882,22 @@
         ],
         "duration_ms": 246322,
         "track_number": 8,
-        "is_saved_track": false
+        "is_saved_track": false,
+        "audio_features": {
+            "danceability": 0.324,
+            "energy": 0.211,
+            "key": 9,
+            "loudness": -13.968,
+            "mode": 0,
+            "speechiness": 0.0318,
+            "acousticness": 0.814,
+            "instrumentalness": 0.226,
+            "liveness": 0.125,
+            "valence": 0.0728,
+            "tempo": 121.755,
+            "duration_ms": 246323,
+            "time_signature": 4
+        }
     },
     {
         "id": "3rpyl78p0Vwcn2qrE6YcwT",
@@ -502,7 +922,22 @@
         ],
         "duration_ms": 156475,
         "track_number": 9,
-        "is_saved_track": false
+        "is_saved_track": false,
+        "audio_features": {
+            "danceability": 0.454,
+            "energy": 0.193,
+            "key": 5,
+            "loudness": -15.91,
+            "mode": 1,
+            "speechiness": 0.0315,
+            "acousticness": 0.713,
+            "instrumentalness": 0.2,
+            "liveness": 0.275,
+            "valence": 0.0811,
+            "tempo": 115.064,
+            "duration_ms": 156475,
+            "time_signature": 4
+        }
     },
     {
         "id": "0bVa2Hl8HxFLyZKlIOEgl7",
@@ -527,7 +962,22 @@
         ],
         "duration_ms": 202021,
         "track_number": 10,
-        "is_saved_track": false
+        "is_saved_track": false,
+        "audio_features": {
+            "danceability": 0.244,
+            "energy": 0.48,
+            "key": 9,
+            "loudness": -9.841,
+            "mode": 0,
+            "speechiness": 0.0328,
+            "acousticness": 0.05,
+            "instrumentalness": 0.447,
+            "liveness": 0.0991,
+            "valence": 0.109,
+            "tempo": 126.867,
+            "duration_ms": 202022,
+            "time_signature": 4
+        }
     },
     {
         "id": "69GHZkWUMcHA9cTct3UxbE",

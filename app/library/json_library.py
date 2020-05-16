@@ -2,6 +2,9 @@ import json
 import os
 from datetime import datetime
 
+from .. import spotify
+from ..utils import debug
+
 
 class JSONLibrary():
     _data_folder = 'data'
@@ -21,6 +24,9 @@ class JSONLibrary():
         self._saved_albums = self._load_items(self._db_files['saved_albums'])
         self._saved_playlists = self._load_items(self._db_files['saved_playlists'])
         self._admin = self._load_items(self._db_files['admin'])
+
+    def get_total_tracks(self):
+        return len(self._library)
 
     def get_last_import_dt(self):
         return datetime.fromisoformat(self._admin.get('last_import_dt', None))
@@ -59,8 +65,9 @@ class JSONLibrary():
 
     def refresh_from_spotify(self, spotify_library):
         self._update_saved_tracks(spotify_library['saved_tracks'])
-        self._update_saved_albums(spotify_library['saved_albums'])
-        self._update_saved_playlists(spotify_library['playlists'])
+        # self._update_saved_albums(spotify_library['saved_albums'])
+        # self._update_saved_playlists(spotify_library['playlists'])
+        self._update_audio_features()
         self._save_last_import_dt()
 
     def _update_saved_tracks(self, fetched_tracks):
@@ -83,11 +90,12 @@ class JSONLibrary():
             additional_track = next(track for track in fetched_tracks if track['id'] == id)
             additional_track['is_saved_track'] = True
             self._library.append(additional_track)
+        self._update_audio_features()
         self._save_items(self._library, self._db_files['library'])
 
     def _update_saved_albums(self, fetched_albums):
         if not fetched_albums: return
-        print(fetched_albums[0])
+        debug("fetched_albums", fetched_albums[0])
         self._save_items(fetched_albums, self._db_files['saved_albums'])
         self._saved_albums = fetched_albums
         fetched_tracks = []
@@ -97,7 +105,7 @@ class JSONLibrary():
 
     def _update_saved_playlists(self, fetched_playlists):
         if not fetched_playlists: return
-        print(fetched_playlists[0])
+        debug("fetched_playlists", fetched_playlists[0])
         self._save_items(fetched_playlists, self._db_files['saved_playlists'])
         self._saved_playlists = fetched_playlists
         fetched_tracks = []
@@ -109,3 +117,16 @@ class JSONLibrary():
         track = next(track for track in self._library if track['id'] == track_id)
         track['tags'] = track_tags
         self._save_items(self._library, self._db_files['library'])
+
+    def _update_audio_features(self):
+        tracks = []
+        for track in self._library:
+            if not track.get('audio_features'):
+                tracks.append(track)
+        if self._dev: del tracks[10:]
+        features = spotify.get_audio_features_for_tracks([track['id'] for track in tracks])
+        debug("features", features[0])
+        for f in features:
+            id = list(f)[0]
+            lib_track = next(track for track in self._library if track['id'] == id)
+            lib_track['audio_features'] = f[id]
