@@ -16,8 +16,7 @@ class JSONLibrary():
         'admin': 'admin.json',
     }
 
-    def __init__(self, dev=False):
-        self._dev = dev
+    def __init__(self):
         self._init_files()
         self._library = self._load_items(self._db_files['library'])
         self._saved_tracks = self._load_items(self._db_files['saved_tracks'])
@@ -29,7 +28,8 @@ class JSONLibrary():
         return len(self._library)
 
     def get_last_import_dt(self):
-        return datetime.fromisoformat(self._admin.get('last_import_dt', None))
+        dt = self._admin.get('last_import_dt', None)
+        return datetime.fromisoformat(dt) if dt else None
 
     def _save_last_import_dt(self):
         self._admin['last_import_dt'] = datetime.utcnow().isoformat()
@@ -64,30 +64,48 @@ class JSONLibrary():
             return json.load(f)
 
     def refresh_from_spotify(self, spotify_library):
-        self._update_saved_tracks(spotify_library['saved_tracks'])
-        # self._update_saved_albums(spotify_library['saved_albums'])
-        # self._update_saved_playlists(spotify_library['playlists'])
+        self._write_saved_tracks(spotify_library['saved_tracks'])
+        self._update_saved_albums(spotify_library['saved_albums'])
+        self._update_saved_playlists(spotify_library['playlists'])
         self._update_audio_features()
         self._save_last_import_dt()
 
-    def _update_saved_tracks(self, fetched_tracks):
-        if not fetched_tracks: return
-        # write fetched tracks to spotify tracks db:
-        self._save_items(fetched_tracks, self._db_files['saved_tracks'])
-        self._saved_tracks = fetched_tracks
-        # update tracks in local library:
-        self._update_library_tracks(fetched_tracks)
+    def _write_saved_tracks(self, tracks):
+        """Writes saved tracks
 
-    def _update_library_tracks(self, fetched_tracks):
-        fetched_track_ids = [track['id'] for track in fetched_tracks]
+        Writes several tracks to the saved tracks db file and to the
+        corresponding local variable, and also updates the custom
+        library accordingly.
+
+        Args:
+            tracks: a list of track objects
+        """
+
+        self._save_items(tracks, self._db_files['saved_tracks'])
+        self._saved_tracks = tracks
+        self._update_library_tracks(tracks)
+
+    def _update_library_tracks(self, tracks):
+        """Updates tracks in custom library
+
+        Library tracks not in incoming track list are marked as "not part of saved tracks", but they are not
+        deleted to preserve existing add-ons like tags.
+        Incoming tracks not yet in library are added.
+        Audio features are fetched and saved where missing.
+
+        Args:
+            tracks: a list of track objects
+        """
+
+        track_ids = [track['id'] for track in tracks]
         library_saved_track_ids = [track['id'] for track in self._library if track['is_saved_track']]
-        deletable_track_ids = [id for id in library_saved_track_ids if id not in fetched_track_ids]
+        deletable_track_ids = [id for id in library_saved_track_ids if id not in track_ids]
         for id in deletable_track_ids:
             existing_track = next(track for track in self._library if track['id'] == id)
             existing_track['is_saved_track'] = False
-        additional_track_ids = [id for id in fetched_track_ids if id not in library_saved_track_ids]
+        additional_track_ids = [id for id in track_ids if id not in library_saved_track_ids]
         for id in additional_track_ids:
-            additional_track = next(track for track in fetched_tracks if track['id'] == id)
+            additional_track = next(track for track in tracks if track['id'] == id)
             additional_track['is_saved_track'] = True
             self._library.append(additional_track)
         self._update_audio_features()
@@ -123,7 +141,6 @@ class JSONLibrary():
         for track in self._library:
             if not track.get('audio_features'):
                 tracks.append(track)
-        if self._dev: del tracks[10:]
         features = spotify.get_audio_features_for_tracks([track['id'] for track in tracks])
         debug("features", features[0])
         for f in features:

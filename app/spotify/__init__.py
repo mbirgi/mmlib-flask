@@ -19,7 +19,14 @@ def import_spotify_library():
     }
 
 def get_audio_features_for_tracks(track_ids):
-    # returns: tracks = [{<id>:{<audio_features}}, ...]
+    """Gets the audio features for several tracks
+
+    Args:
+        track_ids (list): a list of spotify track ids
+
+    Returns:
+        list: a list of dicts like [{<track_id>: {<audio_features}}, ...]
+    """
     sp = Spotify()
     return sp.get_audio_features_for_tracks(track_ids)
 
@@ -56,7 +63,9 @@ class Spotify():
     def get_saved_albums(self):
         results = self._instance.current_user_saved_albums(limit=50)
         albums = results['items']
-        if not self._dev:
+        if self._dev and len(albums) > 3:
+            del albums[3:]
+        else:
             while results['next']:
                 results = self._instance.next(results)
                 albums.extend(results['items'])
@@ -65,7 +74,10 @@ class Spotify():
     def get_saved_playlists(self):
         results = self._instance.current_user_playlists(limit=50)
         playlists = results['items']
-        if not self._dev:
+        if self._dev and len(playlists) > 3:
+            del playlists[3:]
+            debug("playlists", [pl['name'] for pl in playlists])
+        else:
             while results['next']:
                 results = self._instance.next(results)
                 playlists.extend(results['items'])
@@ -121,23 +133,22 @@ class Spotify():
         return [track['track'] for track in tracks]
 
     def get_audio_features_for_tracks(self, track_ids):
-        # returns: tracks = [{<id>:{<audio_features}}, ...]
         batch_size = 50
         features = []
-        debug("track_ids", track_ids[:5])
+        # debug("track_ids", track_ids[:5])
         for i in range(0, len(track_ids), batch_size):
             results = self._instance.audio_features(track_ids[i:i+batch_size])
             features.extend(results)
         tracks = []
         for item in features:
-            debug("item", item)
+            # debug("item", item)
             id = item['id']
             track = {
                 id: item
             }
-            debug("track before", track)
+            # debug("track before", track)
             for key in ['analysis_url', 'id', 'track_href', 'type', 'uri']:
                 if key in track[id]: del track[id][key]
-            debug("track after", track)
+            # debug("track after", track)
             tracks.append(track)
         return tracks
