@@ -5,6 +5,13 @@
     {{ (((millis/(1000*60))|round)%60)|int }}:{{ '{:>02d}'.format((((millis/1000)|round)%60)|int) }}
 {%- endmacro %}
 
+{% macro af_input(feature_name, min_form, max_form) -%}
+    <div class="col-sm-3">
+        <div class="col-sm-7 text-right"><strong>{{ feature_name }}</strong></div>
+        <div class="col-sm-5 px-0">{{ min_form }} - {{ max_form }}</div>
+    </div>
+{%- endmacro %}
+
 {% block page_content %}
     <div class="page-header">
         <h1>The Library <small>(all tracks)</small></h1>
@@ -26,95 +33,51 @@
             </div>
         </div>
         <div class="row mt-1">
-            <div class="col-sm-4">
-                <div class="col-sm-5 text-right"><strong>Danceability</strong></div>
-                <div class="col-sm-6 px-0">
-                    {{ filter_library_form.danceability_min(class_="input-number-sm") }}
-                    -
-                    {{ filter_library_form.danceability_max(class_="input-number-sm") }}
-                </div>
-            </div>
-            <div class="col-sm-4">
-                <div class="col-sm-5 text-right"><strong>Energy</strong></div>
-                <div class="col-sm-6 px-0">
-                    {{ filter_library_form.energy_min(class_="input-number-sm") }}
-                    -
-                    {{ filter_library_form.energy_max(class_="input-number-sm") }}
-                </div>
-            </div>
-            <div class="col-sm-4">
-                <div class="col-sm-5 text-right"><strong>Speechiness</strong></div>
-                <div class="col-sm-6 px-0">
-                    {{ filter_library_form.speechiness_min(class_="input-number-sm") }}
-                    -
-                    {{ filter_library_form.speechiness_max(class_="input-number-sm") }}
-                </div>
-            </div>
+            {{ af_input('Danceability',
+                filter_library_form.danceability_min(class_="input-number-sm"),
+                filter_library_form.danceability_max(class_="input-number-sm")) }}
+            {{ af_input('Energy',
+                filter_library_form.energy_min(class_="input-number-sm"),
+                filter_library_form.energy_max(class_="input-number-sm")) }}
+            {{ af_input('Speechiness',
+                filter_library_form.speechiness_min(class_="input-number-sm"),
+                filter_library_form.speechiness_max(class_="input-number-sm")) }}
+            {{ af_input('Acousticness',
+                filter_library_form.acousticness_min(class_="input-number-sm"),
+                filter_library_form.acousticness_max(class_="input-number-sm")) }}
         </div>
         <div class="row mt-1">
-            <div class="col-sm-4">
-                <div class="col-sm-5 text-right"><strong>Acousticness</strong></div>
-                <div class="col-sm-6 px-0">
-                    {{ filter_library_form.acousticness_min(class_="input-number-sm") }}
-                    -
-                    {{ filter_library_form.acousticness_max(class_="input-number-sm") }}
-                </div>
-            </div>
-            <div class="col-sm-4">
-                <div class="col-sm-5 text-right"><strong>Instrumentalness</strong></div>
-                <div class="col-sm-6 px-0">
-                    {{ filter_library_form.energy_min(class_="input-number-sm") }}
-                    -
-                    {{ filter_library_form.energy_max(class_="input-number-sm") }}
-                </div>
-            </div>
-            <div class="col-sm-4">
-                <div class="col-sm-5 text-right"><strong>Liveness</strong></div>
-                <div class="col-sm-6 px-0">
-                    {{ filter_library_form.speechiness_min(class_="input-number-sm") }}
-                    -
-                    {{ filter_library_form.speechiness_max(class_="input-number-sm") }}
-                </div>
-            </div>
+            {{ af_input('Instrumentalness',
+                filter_library_form.instrumentalness_min(class_="input-number-sm"),
+                filter_library_form.instrumentalness_max(class_="input-number-sm")) }}
+            {{ af_input('Liveness',
+                filter_library_form.liveness_min(class_="input-number-sm"),
+                filter_library_form.liveness_max(class_="input-number-sm")) }}
+            {{ af_input('Valence',
+                filter_library_form.valence_min(class_="input-number-sm"),
+                filter_library_form.valence_max(class_="input-number-sm")) }}
+            {{ af_input('Tempo',
+                filter_library_form.tempo_min(class_="input-number-sm"),
+                filter_library_form.tempo_max(class_="input-number-sm")) }}
         </div>
         <div class="row mt-1">
-            <div class="col-sm-4">
-                <div class="col-sm-5 text-right"><strong>Valence</strong></div>
-                <div class="col-sm-6 px-0">
-                    {{ filter_library_form.danceability_min(class_="input-number-sm") }}
-                    -
-                    {{ filter_library_form.danceability_max(class_="input-number-sm") }}
-                </div>
-            </div>
-            <div class="col-sm-4">
-                <div class="col-sm-5 text-right"><strong>Tempo</strong></div>
-                <div class="col-sm-6 px-0">
-                    {{ filter_library_form.energy_min(class_="input-number-sm") }}
-                    -
-                    {{ filter_library_form.energy_max(class_="input-number-sm") }}
-                </div>
-            </div>
-            <div class="col-sm-4">
-                <div class="col-sm-5 text-right">{{ filter_library_form.mode.label }}</div>
-                <div class="col-sm-6 px-0">
+            <div class="col-sm-3">
+                <div class="col-sm-7 text-right">{{ filter_library_form.mode.label }}</div>
+                <div class="col-sm-5 px-0">
                     {{ filter_library_form.mode() }}
                 </div>
             </div>
-        </div>
-        <div class="row mt-1">
-            <div class="col-sm-4">
-                <div class="col-sm-5 text-right">{{ filter_library_form.key.label }}</div>
-                <div class="col-sm-6 px-0">
+            <div class="col-sm-3">
+                <div class="col-sm-7 text-right">{{ filter_library_form.key.label }}</div>
+                <div class="col-sm-5 px-0">
                     {{ filter_library_form.key(class_="input-text-sm") }}
                 </div>
             </div>
-            <div class="col-sm-4">
-                <div class="col-sm-5 text-right">{{ filter_library_form.time_signature.label }}</div>
-                <div class="col-sm-6 px-0">
+            <div class="col-sm-3">
+                <div class="col-sm-7 text-right">{{ filter_library_form.time_signature.label }}</div>
+                <div class="col-sm-5 px-0">
                     {{ filter_library_form.time_signature(class_="input-text-sm") }}
                 </div>
-            </div>
-            <div class="col-sm-4">
             </div>
         </div>
         <button class="btn btn-default mt-2" type="submit">Apply Filters</button>
