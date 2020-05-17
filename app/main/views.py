@@ -1,4 +1,4 @@
-from flask import render_template, redirect, url_for
+from flask import render_template, redirect, url_for, flash
 
 from . import main
 from .forms import RefreshSpotifyForm, FilterLibraryForm
@@ -32,36 +32,31 @@ def home():
 @main.route('/library', methods=['GET', 'POST'])
 def library():
     filter_library_form = FilterLibraryForm(
-        danceability_min=0.0,
-        danceability_max=1,
-        energy_min=0,
-        energy_max=1,
-        speechiness_min=0,
-        speechiness_max=1,
-        acousticness_min=0,
-        acousticness_max=1,
-        instrumentalness_min=0,
-        instrumentalness_max=1,
-        liveness_min=0,
-        liveness_max=1,
-        valence_min=0,
-        valence_max=1,
-        tempo_min=110,
-        tempo_max=120,
-        mode="Any"
+        danceability_min=0.0, danceability_max=1,
+        energy_min=0, energy_max=1,
+        speechiness_min=0, speechiness_max=1,
+        acousticness_min=0, acousticness_max=1,
+        instrumentalness_min=0, instrumentalness_max=1,
+        liveness_min=0, liveness_max=1,
+        valence_min=0, valence_max=1,
+        tempo_min=110, tempo_max=120,
+        # mode="Any"
     )
     filter_library_form.tags_filter.choices = lib.get_all_tags()
-    artist_choices = sorted([(artist, artist['name']) for artist in lib.get_all_artists()], key=lambda t: t[1])
+    artist_choices = sorted([(artist['id'], artist['name']) for artist in lib.get_all_artists()], key=lambda t: t[1])
     filter_library_form.artist_filter.choices = artist_choices
-    album_choices = sorted([(album, album['name']) for album in lib.get_all_albums()], key=lambda t: t[1])
-    filter_library_form.album_filter.choices = [(album, album['name']) for album in lib.get_all_albums()]
+    album_choices = sorted([(album['id'], album['name']) for album in lib.get_all_albums()], key=lambda t: t[1])
+    filter_library_form.album_filter.choices = album_choices
+    print(f"ok? {filter_library_form.validate_on_submit()}")
     if filter_library_form.validate_on_submit():
         print("filtering library")
         print(f"tags: {filter_library_form.tags_filter.data}")
-        print(f"artists: {filter_library_form.tags_filter.data}")
-        print(f"albums: {filter_library_form.tags_filter.data}")
+        print(f"artists: {filter_library_form.artist_filter.data}")
+        print(f"albums: {filter_library_form.album_filter.data}")
         return redirect(url_for('.library'))
-    return render_template('library.html', library=lib.get_all()[:10], filter_library_form=filter_library_form)
+    else:
+        flash(filter_library_form.errors)
+    return render_template('library.html', filter_library_form=filter_library_form, selected_tracks=[])
 
 
 @main.route('/saved_tracks', methods=['GET', 'POST'])

@@ -6,9 +6,9 @@ class RefreshSpotifyForm(FlaskForm):
     refresh = SubmitField(label='Refresh', id='refresh')
 
 class FilterLibraryForm(FlaskForm):
-    tags_filter = SelectMultipleField('Tags')
-    artist_filter = SelectMultipleField('Artists')
-    album_filter = SelectMultipleField('Albums')
+    tags_filter = SelectMultipleField('Tags', validate_choice=False)
+    artist_filter = SelectMultipleField('Artists', validate_choice=False)
+    album_filter = SelectMultipleField('Albums', validate_choice=False)
     danceability_min = DecimalField()
     danceability_max = DecimalField()
     energy_min = DecimalField()
@@ -25,9 +25,9 @@ class FilterLibraryForm(FlaskForm):
     valence_max = DecimalField()
     tempo_min = IntegerField()
     tempo_max = IntegerField()
-    key = IntegerField("Key")
-    mode = SelectField(choices=['Any', 'Major', 'Minor'])
-    time_signature = IntegerField("Time Signature")
+    # key = IntegerField("Key")
+    # mode = SelectField(choices=['Any', 'Major', 'Minor'], validate_choice=False)
+    # time_signature = IntegerField("Time Signature")
 
 class EditTagsForm(FlaskForm):
     existing_tags = StringField('Existing Tags')
