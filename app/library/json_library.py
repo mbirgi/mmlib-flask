@@ -19,10 +19,27 @@ class JSONLibrary():
     def __init__(self):
         self._init_files()
         self._library = self._load_items(self._db_files['library'])
+        tags = []
+        artists = []
+        for track in self._library:
+            t = track.get('tags')
+            if t: tags.extend(t)
+            artists.extend(track.get('artists'))
+        self._library_tags = tags
+        self._library_artists = artists
         self._saved_tracks = self._load_items(self._db_files['saved_tracks'])
         self._saved_albums = self._load_items(self._db_files['saved_albums'])
         self._saved_playlists = self._load_items(self._db_files['saved_playlists'])
         self._admin = self._load_items(self._db_files['admin'])
+
+    def get_all_tags(self):
+        return self._library_tags
+
+    def get_all_artists(self):
+        return self._library_artists
+
+    def get_all_albums(self):
+        return self._saved_albums
 
     def get_total_tracks(self):
         return len(self._library)

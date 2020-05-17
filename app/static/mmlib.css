@@ -13,3 +13,21 @@ thead {
 .mt-1 {
     margin-top: 1em;
 }
+
+.mt-2 {
+    margin-top: 2em;
+}
+
+.px-0 {
+    padding-left: 0px;
+    padding-right: 0px;
+}
+
+.input-number-sm {
+    width: 6ch;
+    text-align: right;
+}
+
+.input-text-sm {
+    width: 6ch;
+}

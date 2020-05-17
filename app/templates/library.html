@@ -14,30 +14,134 @@
         <div class="row">
             <div class="col-md-4">
                 <div>{{ filter_library_form.tags_filter.label }}:</div>
-                <div>{{ filter_library_form.tags_filter(class="lib-filter") }}</div>
+                <div>{{ filter_library_form.tags_filter(class="lib-filter", size="10") }}</div>
             </div>
             <div class="col-md-4">
                 <div>{{ filter_library_form.artist_filter.label }}:</div>
-                <div>{{ filter_library_form.artist_filter(class="lib-filter") }}</div>
+                <div>{{ filter_library_form.artist_filter(class="lib-filter", size="10") }}</div>
             </div>
             <div class="col-md-4">
                 <div>{{ filter_library_form.album_filter.label }}:</div>
-                <div>{{ filter_library_form.album_filter(class="lib-filter") }}</div>
+                <div>{{ filter_library_form.album_filter(class="lib-filter", size="10") }}</div>
             </div>
         </div>
-        <div class="row">
-            
+        <div class="row mt-1">
+            <div class="col-sm-4">
+                <div class="col-sm-5 text-right"><strong>Danceability</strong></div>
+                <div class="col-sm-6 px-0">
+                    {{ filter_library_form.danceability_min(class_="input-number-sm") }}
+                    -
+                    {{ filter_library_form.danceability_max(class_="input-number-sm") }}
+                </div>
+            </div>
+            <div class="col-sm-4">
+                <div class="col-sm-5 text-right"><strong>Energy</strong></div>
+                <div class="col-sm-6 px-0">
+                    {{ filter_library_form.energy_min(class_="input-number-sm") }}
+                    -
+                    {{ filter_library_form.energy_max(class_="input-number-sm") }}
+                </div>
+            </div>
+            <div class="col-sm-4">
+                <div class="col-sm-5 text-right"><strong>Speechiness</strong></div>
+                <div class="col-sm-6 px-0">
+                    {{ filter_library_form.speechiness_min(class_="input-number-sm") }}
+                    -
+                    {{ filter_library_form.speechiness_max(class_="input-number-sm") }}
+                </div>
+            </div>
         </div>
-        <input class="btn btn-default mt-1" type="submit" value="Apply Filter">
+        <div class="row mt-1">
+            <div class="col-sm-4">
+                <div class="col-sm-5 text-right"><strong>Acousticness</strong></div>
+                <div class="col-sm-6 px-0">
+                    {{ filter_library_form.acousticness_min(class_="input-number-sm") }}
+                    -
+                    {{ filter_library_form.acousticness_max(class_="input-number-sm") }}
+                </div>
+            </div>
+            <div class="col-sm-4">
+                <div class="col-sm-5 text-right"><strong>Instrumentalness</strong></div>
+                <div class="col-sm-6 px-0">
+                    {{ filter_library_form.energy_min(class_="input-number-sm") }}
+                    -
+                    {{ filter_library_form.energy_max(class_="input-number-sm") }}
+                </div>
+            </div>
+            <div class="col-sm-4">
+                <div class="col-sm-5 text-right"><strong>Liveness</strong></div>
+                <div class="col-sm-6 px-0">
+                    {{ filter_library_form.speechiness_min(class_="input-number-sm") }}
+                    -
+                    {{ filter_library_form.speechiness_max(class_="input-number-sm") }}
+                </div>
+            </div>
+        </div>
+        <div class="row mt-1">
+            <div class="col-sm-4">
+                <div class="col-sm-5 text-right"><strong>Valence</strong></div>
+                <div class="col-sm-6 px-0">
+                    {{ filter_library_form.danceability_min(class_="input-number-sm") }}
+                    -
+                    {{ filter_library_form.danceability_max(class_="input-number-sm") }}
+                </div>
+            </div>
+            <div class="col-sm-4">
+                <div class="col-sm-5 text-right"><strong>Tempo</strong></div>
+                <div class="col-sm-6 px-0">
+                    {{ filter_library_form.energy_min(class_="input-number-sm") }}
+                    -
+                    {{ filter_library_form.energy_max(class_="input-number-sm") }}
+                </div>
+            </div>
+            <div class="col-sm-4">
+                <div class="col-sm-5 text-right">{{ filter_library_form.mode.label }}</div>
+                <div class="col-sm-6 px-0">
+                    {{ filter_library_form.mode() }}
+                </div>
+            </div>
+        </div>
+        <div class="row mt-1">
+            <div class="col-sm-4">
+                <div class="col-sm-5 text-right">{{ filter_library_form.key.label }}</div>
+                <div class="col-sm-6 px-0">
+                    {{ filter_library_form.key(class_="input-text-sm") }}
+                </div>
+            </div>
+            <div class="col-sm-4">
+                <div class="col-sm-5 text-right">{{ filter_library_form.time_signature.label }}</div>
+                <div class="col-sm-6 px-0">
+                    {{ filter_library_form.time_signature(class_="input-text-sm") }}
+                </div>
+            </div>
+            <div class="col-sm-4">
+            </div>
+        </div>
+        <button class="btn btn-default mt-2" type="submit">Apply Filters</button>
+        <button type="reset" class="btn btn-default mt-2">Reset</button>
         <hr>
     </form>
+    <form method="POST" action="/library">
+        <div class="row">
+            <div class="col-sm-12">Total selected tracks: {{ selected_tracks | length }}</div>
+        </div>
+        <br>
+        <div class="row">
+            <div class="col-sm-12">
+                <button class="btn btn-default" type="submit">View Tracks</button>
+                <button class="btn btn-default" type="submit">Edit Tags</button>
+                <button class="btn btn-default" type="submit">Save as Playlist</button>
+            </div>
+        </div>
+    </form>
+    <hr>
     <table class="table table-hover table-bordered table-condensed">
         <thead>
             <th>Track Name</th>
             <th>Track Artists</th>
             <th class="text-right">Duration (ms)</th>
             <th>Tags</th>
-            {#            <th>Edit</th>#}
+            <th>Edit</th>
         </thead>
         <tbody>
             {% for track in library %}
@@ -48,34 +152,6 @@
                     {% endfor %}</td>
                     <td class="text-right">{{ format_duration(track.duration_ms) }}</td>
                     <td>{{ track.tags }}</td>
-                    {#                    <td>#}
-                    {#                        <!-- Button trigger modal -->#}
-                    {#                        <button type="button" class="btn btn-sm btn-default" data-toggle="modal" data-target="#editTags">#}
-                    {#                            Edit#}
-                    {#                        </button>#}
-                    {##}
-                    {#                        <!-- Modal -->#}
-                    {#                        <div class="modal fade" id="editTags" tabindex="-1" role="dialog" aria-labelledby="editTagsLabel">#}
-                    {#                            <div class="modal-dialog" role="document">#}
-                    {#                                <div class="modal-content">#}
-                    {#                                    <div class="modal-header">#}
-                    {#                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">#}
-                    {#                                            <span aria-hidden="true">&times;</span></button>#}
-                    {#                                        <h4 class="modal-title" id="myModalLabel">Edit track tags</h4>#}
-                    {#                                    </div>#}
-                    {#                                    <div class="modal-body">#}
-                    {#                                        {{ track.name }}#}
-                    {#                                        {{ track.tags }}#}
-                    {#                                    </div>#}
-                    {#                                    <div class="modal-footer">#}
-                    {#                                        <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>#}
-                    {#                                        <button type="button" class="btn btn-primary">Save changes</button>#}
-                    {#                                        {{ wtf.quick_form(edit_tags_form, id=track.id) }}#}
-                    {#                                    </div>#}
-                    {#                                </div>#}
-                    {#                            </div>#}
-                    {#                        </div>#}
-                    {#                    </td>#}
                 </tr>
             {% endfor %}
         </tbody>
