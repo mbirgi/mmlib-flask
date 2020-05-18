@@ -1,3 +1,5 @@
+import time
+
 from flask import render_template, redirect, url_for, flash, session
 import itertools
 
@@ -11,9 +13,15 @@ from ..library import library as lib
 def home():
     form = RefreshSpotifyForm()
     if form.validate_on_submit():
-        print("Button pressed")
+        print("importing spotify library")
+        start = time.time()
         spotify_library = spotify.import_spotify_library()
+        end = time.time()
+        print("import time:", end - start)
+        start = time.time()
         lib.refresh_from_spotify(spotify_library)
+        end = time.time()
+        print("write time:", end - start)
         return redirect(url_for('.home'))
     num_tracks = len(lib.get_saved_tracks())
     num_albums = len(lib.get_saved_albums())
