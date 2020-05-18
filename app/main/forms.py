@@ -1,9 +1,17 @@
 from flask_wtf import FlaskForm
-from wtforms import SelectField, SelectMultipleField, SubmitField, StringField, DecimalField, IntegerField
+from wtforms import SelectMultipleField, SubmitField, StringField, DecimalField, IntegerField
 
 
 class RefreshSpotifyForm(FlaskForm):
     refresh = SubmitField(label='Refresh', id='refresh')
+
+class FilterAlbumsForm(FlaskForm):
+    # tags_filter = SelectMultipleField('Tags')
+    artist_filter = SelectMultipleField('Artists')
+    filter_artists = SubmitField("Filter Artists")
+    album_filter = SelectMultipleField('Albums')
+    filter_albums = SubmitField("Filter Albums")
+    reset_filters = SubmitField("Reset Filters")
 
 class FilterLibraryForm(FlaskForm):
     tags_filter = SelectMultipleField('Tags', validate_choice=False)

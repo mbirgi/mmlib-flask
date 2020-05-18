@@ -1,7 +1,8 @@
-from flask import render_template, redirect, url_for, flash
+from flask import render_template, redirect, url_for, flash, session
+import itertools
 
 from . import main
-from .forms import RefreshSpotifyForm, FilterLibraryForm
+from .forms import RefreshSpotifyForm, FilterLibraryForm, FilterAlbumsForm
 from .. import spotify
 from ..library import library as lib
 
@@ -54,7 +55,7 @@ def library():
         print(f"artists: {filter_library_form.artist_filter.data}")
         print(f"albums: {filter_library_form.album_filter.data}")
         return redirect(url_for('.library'))
-    else:
+    elif filter_library_form.errors:
         flash(filter_library_form.errors)
     return render_template('library.html', filter_library_form=filter_library_form, selected_tracks=[])
 
@@ -66,7 +67,31 @@ def saved_tracks():
 
 @main.route('/saved_albums', methods=['GET', 'POST'])
 def saved_albums():
-    return render_template('saved_albums.html', albums=lib.get_saved_albums())
+    form = FilterAlbumsForm()
+    album_artists = list(itertools.chain.from_iterable([album['artists'] for album in lib.get_all_albums()]))
+    form.artist_filter.choices = set(sorted([(artist['id'], artist['name']) for artist in album_artists], key=lambda t: t[1]))
+    session['show_albums_filter'] = bool(session.get('sel_artist_ids'))
+    # print("sel_artist_ids:", session.get('sel_artist_ids'))
+    albums = lib.get_saved_albums_for_artists(artists=session.get('sel_artist_ids'))
+    # print("albums:", albums)
+    form.album_filter.choices = sorted([(album['id'], album['name']) for album in albums], key=lambda t: t[1])
+
+    if form.validate_on_submit():
+        if form.filter_artists.data:
+            session['sel_artist_ids'] = form.artist_filter.data
+        elif form.filter_albums.data:
+            session['sel_album_ids'] = form.album_filter.data
+        elif form.reset_filters.data:
+            session['sel_artist_ids'] = []
+            session['sel_album_ids'] = []
+        return redirect(url_for('.saved_albums'))
+
+    selected_albums = [album for album in albums if album['id'] in session.get('sel_album_ids', [])]
+    return render_template('saved_albums.html', form=form,
+                           debug_selected_artists=session.get('sel_artist_ids'),
+                           debug_selected_albums=session.get('sel_album_ids'),
+                           selected_albums=selected_albums,
+                           show_albums_filter=session.get('show_albums_filter'))
 
 
 @main.route('/saved_playlists', methods=['GET', 'POST'])

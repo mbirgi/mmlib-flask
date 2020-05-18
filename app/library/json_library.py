@@ -61,6 +61,16 @@ class JSONLibrary():
     def get_saved_albums(self):
         return self._saved_albums
 
+    def get_saved_albums_for_artists(self, artists):
+        # artists is a list artist ids!
+        albums_for_artists = []
+        if artists:
+            for album in self._saved_albums:
+                for artist in album['artists']:
+                    if artist['id'] in artists:
+                        albums_for_artists.append(album)
+        return albums_for_artists
+
     def get_saved_playlists(self):
         return self._saved_playlists
 
