@@ -8,7 +8,7 @@ class SQLLibrary():
 
     def refresh_from_spotify(self, spotify_library):
         self._update_saved_tracks(spotify_library['saved_tracks'])
-        # self._update_saved_albums(spotify_library['saved_albums'])
+        self._update_saved_albums(spotify_library['saved_albums'])
         # self._update_saved_playlists(spotify_library['playlists'])
         # self._update_audio_features()
         # self._save_last_import_dt()
@@ -23,13 +23,13 @@ class SQLLibrary():
             self._write_saved_track(track)
 
     def _write_saved_album(self, saved_album):
-        if not Album.query.get(saved_album['id']):
-            album = self._make_db_album(saved_album)
+        album = Album.query.get(saved_album['id']) or self._make_db_album(saved_album)
+        if not album.is_saved_album:
+            album.is_saved_album = True
             db.session.add(album)
 
     def _write_saved_track(self, saved_track):
         track = Track.query.get(saved_track['id']) or self._make_db_track(saved_track)
-        print(track)
         if not track.is_saved_track:
             track.is_saved_track = True
             db.session.add(track)
