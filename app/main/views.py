@@ -23,17 +23,17 @@ def home():
         end = time.time()
         print("write time:", end - start)
         return redirect(url_for('.home'))
-    num_tracks = len(lib.get_saved_tracks())
-    num_albums = len(lib.get_saved_albums())
-    num_playlists = len(lib.get_saved_playlists())
-    num_lib_tracks = lib.get_total_tracks()
+    # num_tracks = len(lib.get_saved_tracks())
+    # num_albums = len(lib.get_saved_albums())
+    # num_playlists = len(lib.get_saved_playlists())
+    # num_lib_tracks = lib.get_total_tracks()
     context = {
         'form': form,
-        'num_tracks': num_tracks,
-        'num_albums': num_albums,
-        'num_playlists': num_playlists,
-        'num_lib_tracks': num_lib_tracks,
-        'last_import': lib.get_last_import_dt()
+        # 'num_tracks': num_tracks,
+        # 'num_albums': num_albums,
+        # 'num_playlists': num_playlists,
+        # 'num_lib_tracks': num_lib_tracks,
+        # 'last_import': lib.get_last_import_dt()
     }
     return render_template('home.html', context=context)
 
