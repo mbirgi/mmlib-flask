@@ -6,12 +6,12 @@ album_artists = db.Table(
     db.Column('artist_id', db.String(22), db.ForeignKey('artists.id'), primary_key=True)
 )
 
-album_tracks = db.Table(
-    'album_tracks',
-    db.Column('album_id', db.String(22), db.ForeignKey('albums.id'), primary_key=True),
-    db.Column('track_id', db.String(22), db.ForeignKey('tracks.id'), primary_key=True),
-    db.Column('track_num', db.Integer, primary_key=True)
-)
+# album_tracks = db.Table(
+#     'album_tracks',
+#     db.Column('album_id', db.String(22), db.ForeignKey('albums.id'), primary_key=True),
+#     db.Column('track_id', db.String(22), db.ForeignKey('tracks.id'), primary_key=True),
+#     # db.Column('track_num', db.Integer, primary_key=True)
+# )
 
 playlist_tracks = db.Table(
     'playlist_tracks',
@@ -39,7 +39,7 @@ class Album(db.Model):
     is_saved_album = db.Column(db.Boolean, default=False)
     year = db.Column(db.Integer)
     artists = db.relationship('Artist', secondary=album_artists, backref=db.backref('albums'))
-    tracks = db.relationship('Track', secondary=album_tracks, backref=db.backref('albums'))
+    tracks = db.relationship('Track', backref='album')
     total_tracks = db.Column(db.Integer)
 
     def __repr__(self):
@@ -60,7 +60,9 @@ class Track(db.Model):
     id = db.Column(db.String(22), primary_key=True)  # use Spotify ID
     name = db.Column(db.String(256))
     is_saved_track = db.Column(db.Boolean, default=False)
+    album_id = db.Column(db.String, db.ForeignKey('albums.id'))
     artists = db.relationship('Artist', secondary=track_artists, backref=db.backref('tracks'))
+    track_number = db.Integer()
     duration_ms = db.Column(db.Integer)
     tempo = db.Column(db.Float)
     danceability = db.Column(db.Float)

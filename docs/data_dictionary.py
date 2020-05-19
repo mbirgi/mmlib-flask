@@ -1,4 +1,75 @@
-library = {
+album = {
+    "id": "32HZWKCeUbJudLgwGFLd2p",
+    "name": "Silver (feat. Eddie Henderson, Juini Booth & Kenny Wollesen)",
+    "artists": [
+        {
+            "id": "5aweKNLI0ZyI48q5TmoCxT",
+            "name": "Ilhan Ersahin"
+        }
+    ],
+    "total_tracks": 11,
+    "tracks": [
+        {
+            "id": "1dChLNfqO43MmCpkW3iegQ",
+            "name": "Silver Overture (feat. Eddie Henderson, Juini Booth & Kenny Wollesen)",
+            "artists": [
+                {
+                    "id": "5aweKNLI0ZyI48q5TmoCxT",
+                    "name": "Ilhan Ersahin"
+                },
+                {
+                    "id": "4LMsUGCTzMsLYcL90zb8sF",
+                    "name": "Eddie Henderson"
+                },
+                {
+                    "id": "1tXPpeeujLI04jJNir7Zke",
+                    "name": "Juini Booth"
+                },
+                {
+                    "id": "6Zn84vmI9vs51dH9UK52bV",
+                    "name": "Kenny Wollesen"
+                }
+            ],
+            "duration_ms": 167557,
+            "track_number": 1
+        },
+    ]
+}
+
+track = {
+    "id": "5KvOWvM8d5gLYYoHrO3hKP",
+    "name": "Mellow Mood",
+    "artists": [
+        {
+            "id": "0HED7cXMsNbjeqjYNyskFU",
+            "name": "Soul Sugar"
+        }
+    ],
+    "duration_ms": 266680,
+    "track_number": 6
+}
+
+playlist = {
+    "id": "1RCkV13SZppDGX6DjtL4JD",
+    "name": "Acid Jazz Funk",
+    "description": "acid jazz us3 funk prince maceo parker james brown ronny jordan guru jazzmatazz, blackwave, jazz meets funk and hip hop.",
+    "tracks": [
+        {
+            "id": "79ykdWd22NalUbAITqxd1A",
+            "name": "Roots (Back To A Way Of Life)",
+            "artists": [
+                {
+                    "id": "5moJNCJeiNwuQAhDLJXULs",
+                    "name": "Incognito"
+                }
+            ],
+            "duration_ms": 342000,
+            "track_number": 1
+        }
+    ]
+}
+
+json_library = {
     "tracks": [
         {
             "id": "String",
