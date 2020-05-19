@@ -1,5 +1,5 @@
 from .. import db
-from ..models import Track, Artist, Album
+from ..models import Track, Artist, Album, Playlist
 
 
 class SQLLibrary():
@@ -9,7 +9,7 @@ class SQLLibrary():
     def refresh_from_spotify(self, spotify_library):
         self._update_saved_tracks(spotify_library['saved_tracks'])
         self._update_saved_albums(spotify_library['saved_albums'])
-        # self._update_saved_playlists(spotify_library['playlists'])
+        self._update_saved_playlists(spotify_library['playlists'])
         # self._update_audio_features()
         # self._save_last_import_dt()
         db.session.commit()
@@ -17,6 +17,10 @@ class SQLLibrary():
     def _update_saved_albums(self, saved_albums):
         for album in saved_albums:
             self._write_saved_album(album)
+
+    def _update_saved_playlists(self, saved_playlists):
+        for playlist in saved_playlists:
+            self._write_saved_playlist(playlist)
 
     def _update_saved_tracks(self, tracks):
         for track in tracks:
@@ -27,6 +31,12 @@ class SQLLibrary():
         if not album.is_saved_album:
             album.is_saved_album = True
             db.session.add(album)
+
+    def _write_saved_playlist(self, saved_playlist):
+        playlist = Playlist.query.get(saved_playlist['id']) or self._make_db_playlist(saved_playlist)
+        # if not playlist.is_saved_album:
+        #     playlist.is_saved_album = True
+        #     db.session.add(playlist)
 
     def _write_saved_track(self, saved_track):
         track = Track.query.get(saved_track['id']) or self._make_db_track(saved_track)
@@ -52,6 +62,16 @@ class SQLLibrary():
         )
         db.session.add(db_artist)
         return db_artist
+
+    def _make_db_playlist(self, playlist):
+        db_playlist = Playlist(
+            id=playlist['id'],
+            name=playlist['name'],
+            description=playlist['description'],
+        )
+        db.session.add(db_playlist)
+        self._add_item_tracks(db_playlist, playlist['tracks'])
+        return db_playlist
 
     def _make_db_track(self, track):
         db_track = Track(
