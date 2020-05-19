@@ -77,6 +77,7 @@ class Playlist(db.Model):
     tracks = db.relationship('Track', secondary=playlist_tracks, backref=db.backref('playlists'))
     name = db.Column(db.String(256), default="New Playlist")
     description = db.Column(db.String(256))
+    is_saved_playlist = db.Column(db.Boolean, default=False)
 
     def __repr__(self):
         return f"<Playlist {self.name}>"

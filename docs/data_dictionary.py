@@ -36,6 +36,23 @@ album = {
     ]
 }
 
+audio_features = {
+    "id": "5KvOWvM8d5gLYYoHrO3hKP",
+    "danceability": 0.773,
+    "energy": 0.645,
+    "key": 1,
+    "loudness": -10.348,
+    "mode": 1,
+    "speechiness": 0.0427,
+    "acousticness": 0.0831,
+    "instrumentalness": 0.785,
+    "liveness": 0.0823,
+    "valence": 0.699,
+    "tempo": 133.927,
+    "duration_ms": 266680,
+    "time_signature": 4
+}
+
 track = {
     "id": "5KvOWvM8d5gLYYoHrO3hKP",
     "name": "Mellow Mood",
@@ -46,7 +63,19 @@ track = {
         }
     ],
     "duration_ms": 266680,
-    "track_number": 6
+    "track_number": 6,
+    "danceability": 0.773,
+    "energy": 0.645,
+    "key": 1,
+    "loudness": -10.348,
+    "mode": 1,
+    "speechiness": 0.0427,
+    "acousticness": 0.0831,
+    "instrumentalness": 0.785,
+    "liveness": 0.0823,
+    "valence": 0.699,
+    "tempo": 133.927,
+    "time_signature": 4
 }
 
 playlist = {

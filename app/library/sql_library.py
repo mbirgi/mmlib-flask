@@ -1,5 +1,6 @@
 from .. import db
 from ..models import Track, Artist, Album, Playlist
+from .. import spotify
 
 
 class SQLLibrary():
@@ -13,6 +14,27 @@ class SQLLibrary():
         # self._update_audio_features()
         # self._save_last_import_dt()
         db.session.commit()
+
+    # def _update_audio_features(self):
+    #     features = spotify.get_audio_features_for_tracks([track.id for track in Track.query.all()])
+    #     for item in features:
+    #         track = Track.query.get(item['id'])
+    #         track.danceability = item.get('danceability')
+    #         track.energy = item.get('energy')
+    #         track.key = item.get('key')
+    #         track.loudness = item.get('loudness')
+    #         track.mode = item.get('mode')
+    #         track.speechiness = item.get('speechiness')
+    #         track.acousticness = item.get('acousticness')
+    #         track.instrumentalness = item.get('instrumentalness')
+    #         track.liveness = item.get('liveness')
+    #         track.valence = item.get('valence')
+    #         track.tempo = item.get('tempo')
+    #         track.duration_ms = item.get('duration_ms')
+    #         track.time_signature = item.get('time_signature')
+    #         db.session.add(track)
+
+
 
     def _update_saved_albums(self, saved_albums):
         for album in saved_albums:
@@ -34,9 +56,9 @@ class SQLLibrary():
 
     def _write_saved_playlist(self, saved_playlist):
         playlist = Playlist.query.get(saved_playlist['id']) or self._make_db_playlist(saved_playlist)
-        # if not playlist.is_saved_album:
-        #     playlist.is_saved_album = True
-        #     db.session.add(playlist)
+        if not playlist.is_saved_playlist:
+            playlist.is_saved_playlist = True
+            db.session.add(playlist)
 
     def _write_saved_track(self, saved_track):
         track = Track.query.get(saved_track['id']) or self._make_db_track(saved_track)
@@ -48,7 +70,7 @@ class SQLLibrary():
         db_album = Album(
             id=album['id'],
             name=album['name'],
-            total_tracks=album['total_tracks'],
+            total_tracks=album['total_tracks']
         )
         db.session.add(db_album)
         self._add_item_artists(db_album, album['artists'])
@@ -78,7 +100,19 @@ class SQLLibrary():
             id=track['id'],
             name=track['name'],
             duration_ms=track['duration_ms'],
-            track_number=track['track_number']
+            track_number=track['track_number'],
+            danceability=track.get('danceability'),
+            energy=track.get('energy'),
+            key=track.get('key'),
+            loudness=track.get('loudness'),
+            mode=track.get('mode'),
+            speechiness=track.get('speechiness'),
+            acousticness=track.get('acousticness'),
+            instrumentalness=track.get('instrumentalness'),
+            liveness=track.get('liveness'),
+            valence=track.get('valence'),
+            tempo=track.get('tempo'),
+            time_signature=track.get('time_signature'),
         )
         db.session.add(db_track)
         self._add_item_artists(db_track, track['artists'])
