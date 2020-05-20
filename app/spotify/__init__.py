@@ -68,10 +68,9 @@ class Spotify():
     def get_saved_albums(self):
         results = self._instance.current_user_saved_albums(limit=50)
         albums = results['items']
-        print("self._dev:", self._dev)
         if (self._dev) and (len(albums) > 3):
             del albums[3:]
-            print("albums curtailed")
+            print("dev mode: albums curtailed")
         else:
             while results['next']:
                 results = self._instance.next(results)
@@ -99,7 +98,6 @@ class Spotify():
                 "artists": [{'id': artist['id'], 'name': artist['name']} for artist in track['artists']],
                 "duration_ms": track['duration_ms'],
                 'track_number': track.get('track_number'),
-                # "audio_features": self._get_audio_features_for_track(track['id'])
             }
             sanitized_tracks.append(sanitized_track)
         return sanitized_tracks

@@ -21,6 +21,13 @@ class Library():
             db.session.add(lib_track)
         db.session.commit()
 
+    def update_saved_albums(self, sp_albums):
+        for sp_album in sp_albums:
+            lib_album = Track.query.get(sp_album['id']) or self._make_db_album(sp_album)
+            lib_album.is_saved_album = True
+            db.session.add(lib_album)
+        db.session.commit()
+
     def _make_db_track(self, sp_track):
         db_track = Track(
             id=sp_track['id'],
@@ -49,6 +56,11 @@ class Library():
             item_artist = Artist.query.get(artist['id']) or self._make_db_artist(artist)
             item.artists.append(item_artist)
 
+    def _add_item_tracks(self, item, tracks):
+        for track in tracks:
+            item_track = Track.query.get(track['id']) or self._make_db_track(track)
+            item.tracks.append(item_track)
+
     def _make_db_artist(self, artist):
         db_artist = Artist(
             id=artist['id'],
@@ -56,3 +68,14 @@ class Library():
         )
         db.session.add(db_artist)
         return db_artist
+
+    def _make_db_album(self, sp_album):
+        db_album = Album(
+            id=sp_album['id'],
+            name=sp_album['name'],
+            total_tracks=sp_album['total_tracks']
+        )
+        db.session.add(db_album)
+        self._add_item_artists(db_album, sp_album['artists'])
+        self._add_item_tracks(db_album, sp_album['tracks'])
+        return db_album

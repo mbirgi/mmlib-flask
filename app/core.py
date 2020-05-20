@@ -27,7 +27,10 @@ def _refresh_saved_tracks():
 
 
 def _refresh_saved_albums():
-    pass
+    saved_albums = sp.get_saved_albums()
+    print("saved albums:", len(saved_albums))
+    lib.update_saved_albums(saved_albums)
+    # _get_audio_features(saved_albums)
 
 
 def _refresh_saved_playlists():
