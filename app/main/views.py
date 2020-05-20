@@ -5,20 +5,20 @@ import itertools
 
 from . import main
 from .forms import RefreshSpotifyForm, FilterLibraryForm, FilterAlbumsForm
-from .. import spotify
-from ..library import library as lib
+from ..core import refresh_library
 
 
 @main.route('/', methods=['GET', 'POST'])
 def home():
     form = RefreshSpotifyForm()
     if form.validate_on_submit():
-        print("importing spotify library")
+        print("refreshing spotify library")
         start = time.time()
-        spotify_library = spotify.import_spotify_library()
-        lib.refresh_from_spotify(spotify_library)
+        refresh_library()
+        # spotify_library = spotify.import_spotify_library()
+        # lib.refresh_from_spotify(spotify_library)
         end = time.time()
-        print("import duration:", end - start)
+        print("refresh duration:", end - start)
         return redirect(url_for('.home'))
     # num_tracks = len(lib.get_saved_tracks())
     # num_albums = len(lib.get_saved_albums())

@@ -64,8 +64,18 @@ class Track(db.Model):
     artists = db.relationship('Artist', secondary=track_artists, backref=db.backref('tracks'))
     track_number = db.Integer()
     duration_ms = db.Column(db.Integer)
-    tempo = db.Column(db.Float)
     danceability = db.Column(db.Float)
+    energy = db.Column(db.Float)
+    key = db.Column(db.Integer)
+    loudness = db.Column(db.Float)
+    mode = db.Column(db.Integer)
+    speechiness = db.Column(db.Float)
+    acousticness = db.Column(db.Float)
+    instrumentalness = db.Column(db.Float)
+    liveness = db.Column(db.Float)
+    valence = db.Column(db.Float)
+    tempo = db.Column(db.Float)
+    time_signature = db.Column(db.Integer)
 
     def __repr__(self):
         return f"<Track {self.name}>"

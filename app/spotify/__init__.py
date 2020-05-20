@@ -8,6 +8,7 @@ from ..utils import debug
 _dev = bool(os.getenv('MMLIB_DEV_MODE') == '1')
 print("dev mode:", _dev)
 
+
 def import_spotify_library():
     sp = Spotify()
     saved_tracks = sp.get_saved_tracks()
@@ -18,6 +19,7 @@ def import_spotify_library():
         "saved_albums": saved_albums,
         "playlists": playlists
     }
+
 
 # def get_audio_features_for_tracks(track_ids):
 #     """Gets the audio features for several tracks
@@ -47,6 +49,8 @@ def _login(username, scope):
 
 
 class Spotify():
+    af_batch_size = 50
+
     def __init__(self, username='mbirgi', scope='user-library-read'):
         self._dev = _dev
         self._instance = _login(username, scope)
@@ -95,9 +99,10 @@ class Spotify():
                 "artists": [{'id': artist['id'], 'name': artist['name']} for artist in track['artists']],
                 "duration_ms": track['duration_ms'],
                 'track_number': track.get('track_number'),
+                # "audio_features": self._get_audio_features_for_track(track['id'])
             }
             sanitized_tracks.append(sanitized_track)
-        return self._get_audio_features_for_tracks(sanitized_tracks)
+        return sanitized_tracks
 
     def _sanitize_albums(self, albums):
         sanitized_albums = []
@@ -135,27 +140,31 @@ class Spotify():
                 tracks.extend(results['items'])
         return [track['track'] for track in tracks]
 
-    def _get_audio_features_for_tracks(self, tracks):
-        track_ids = [track['id'] for track in tracks]
-        batch_size = 50
-        features = []
-        for i in range(0, len(track_ids), batch_size):
-            results = self._instance.audio_features(track_ids[i:i+batch_size])
-            features.extend(results)
-        for track in tracks:
-            track_features = next(f for f in features if f['id'] == track['id'])
-            print("track_features:", track_features)
-            track['danceability'] = track_features.get('danceability')
-            track['energy'] = track_features.get('energy')
-            track['key'] = track_features.get('key')
-            track['loudness'] = track_features.get('loudness')
-            track['mode'] = track_features.get('mode')
-            track['speechiness'] = track_features.get('speechiness')
-            track['acousticness'] = track_features.get('acousticness')
-            track['instrumentalness'] = track_features.get('instrumentalness')
-            track['liveness'] = track_features.get('liveness')
-            track['valence'] = track_features.get('valence')
-            track['tempo'] = track_features.get('tempo')
-            track['duration_ms'] = track_features.get('duration_ms')
-            track['time_signature'] = track_features.get('time_signature')
-        return tracks
+    def _get_audio_features_for_track(self, track_id):
+        # batch_size = 50
+        track_features = self._instance.audio_features(track_id)
+        # for i in range(0, len(track_ids), batch_size):
+        #     results = self._instance.audio_features(track_ids[i:i+batch_size])
+        #     features.extend(results)
+        # for track in tracks:
+        #     track_features = next((f for f in features if f['id'] == track['id']), None)
+        #     print(("track:", track))
+        print("track_features:", track_features)
+        # if track_features is not None:
+        # track['danceability'] = track_features.get('danceability')
+        # track['energy'] = track_features.get('energy')
+        # track['key'] = track_features.get('key')
+        # track['loudness'] = track_features.get('loudness')
+        # track['mode'] = track_features.get('mode')
+        # track['speechiness'] = track_features.get('speechiness')
+        # track['acousticness'] = track_features.get('acousticness')
+        # track['instrumentalness'] = track_features.get('instrumentalness')
+        # track['liveness'] = track_features.get('liveness')
+        # track['valence'] = track_features.get('valence')
+        # track['tempo'] = track_features.get('tempo')
+        # track['duration_ms'] = track_features.get('duration_ms')
+        # track['time_signature'] = track_features.get('time_signature')
+        return track_features
+
+    def get_audio_features(self, tracks):
+        pass
