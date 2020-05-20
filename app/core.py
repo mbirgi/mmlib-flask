@@ -34,4 +34,6 @@ def _refresh_saved_albums():
 
 
 def _refresh_saved_playlists():
-    pass
+    saved_playlists = sp.get_saved_playlists()
+    print("saved playlists:", len(saved_playlists))
+    lib.update_saved_playlists(saved_playlists)

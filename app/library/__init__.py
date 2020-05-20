@@ -8,8 +8,11 @@ class Library():
     def save_tracks(self, sp_tracks):
         lib.save_tracks(sp_tracks)
 
-    def update_saved_tracks(self, sp_tracks):
-        lib.update_saved_tracks(sp_tracks)
-
     def update_saved_albums(self, sp_albums):
         lib.update_saved_albums(sp_albums)
+
+    def update_saved_playlists(self, sp_playlists):
+        lib.update_saved_playlists(sp_playlists)
+
+    def update_saved_tracks(self, sp_tracks):
+        lib.update_saved_tracks(sp_tracks)
