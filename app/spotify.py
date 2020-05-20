@@ -3,7 +3,7 @@ import os
 import spotipy
 import spotipy.util
 
-from ..utils import debug
+from app.utils import debug
 
 _dev = bool(os.getenv('MMLIB_DEV_MODE') == '1')
 print("dev mode:", _dev)
