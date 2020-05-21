@@ -1,5 +1,12 @@
+import json
+import os
+from datetime import datetime
+
 from app import db
 from app.models import Track, Artist, Album, Playlist
+
+_data_folder = 'data'
+_admin_file = 'admin.json'
 
 
 def _add_item_artists(item, artists):
@@ -162,3 +169,13 @@ def update_saved_tracks(sp_tracks):
         lib_track.is_saved_track = True
         db.session.add(lib_track)
     db.session.commit()
+
+def get_last_import_dt():
+    with open(os.path.join(_data_folder, _admin_file), 'r', encoding='utf-8') as f:
+        items = json.load(f)
+    return datetime.fromisoformat(items.get('last_import_dt'))
+
+def update_last_import_dt():
+    last_import_dt = datetime.utcnow().isoformat()
+    with open(os.path.join(_data_folder, _admin_file), 'w', encoding='utf-8') as f:
+        json.dump({'last_import_dt': last_import_dt}, f, ensure_ascii=False, indent=4)

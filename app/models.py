@@ -102,6 +102,8 @@ class Tag(db.Model):
     def __repr__(self):
         return f"<Tag {self.name}>"
 
+
+
 # class SavedTrack(db.Model):
 #     __tablename__ = 'saved_tracks'
 #     id = db.Column(db.String(22), primary_key=True)  # use Spotify ID

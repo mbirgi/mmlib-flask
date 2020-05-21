@@ -74,5 +74,6 @@ def refresh_library():
     _refresh_saved_albums()
     _refresh_saved_playlists()
     _update_audio_features()
+    lib.update_last_import_dt()
     end = time.time()
     print(f"refresh duration (h:m:s): {str(datetime.timedelta(seconds=int(end - start)))}")

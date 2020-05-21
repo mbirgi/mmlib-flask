@@ -25,7 +25,7 @@ def home():
         'num_albums': num_albums,
         'num_playlists': num_playlists,
         'num_lib_tracks': num_lib_tracks,
-        # 'last_import': lib.get_last_import_dt()
+        'last_import': lib.get_last_import_dt()
     }
     return render_template('home.html', context=context)
 

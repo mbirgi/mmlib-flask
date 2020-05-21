@@ -11,7 +11,7 @@
             <p>Number of saved albums: <strong>{{ context.num_albums }}</strong></p>
             <p>Number of saved playlists: <strong>{{ context.num_playlists }}</strong></p>
             <p>Total number of tracks in library: <strong>{{ context.num_lib_tracks }}</strong></p>
-{#            <p>Last updated: <strong>{{ moment(context.last_import).format('LLL') }}</strong></p>#}
+            <p>Last updated: <strong>{{ moment(context.last_import).format('LLL') }}</strong></p>
             {{ wtf.quick_form(context.form) }}
         </div>
     </div>
