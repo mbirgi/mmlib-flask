@@ -1,5 +1,3 @@
-import time
-
 from flask import render_template, redirect, url_for, flash, session
 import itertools
 
@@ -13,10 +11,7 @@ def home():
     form = RefreshSpotifyForm()
     if form.validate_on_submit():
         print("refreshing spotify library")
-        start = time.time()
         refresh_library()
-        end = time.time()
-        print("refresh duration (sec):", end - start)
         return redirect(url_for('.home'))
     # num_tracks = len(lib.get_saved_tracks())
     # num_albums = len(lib.get_saved_albums())

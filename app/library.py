@@ -66,31 +66,44 @@ def _update_lib_playlist(lib_playlist, sp_playlist):
 
 def _update_lib_track(lib_track, sp_track):
     lib_track.id = sp_track['id']
-    lib_track.name = sp_track['name']
-    lib_track.duration_ms = sp_track['duration_ms']
-    lib_track.track_number = sp_track['track_number']
-    lib_track.danceability = sp_track.get('danceability')
-    lib_track.energy = sp_track.get('energy')
-    lib_track.key = sp_track.get('key')
-    lib_track.loudness = sp_track.get('loudness')
-    lib_track.mode = sp_track.get('mode')
-    lib_track.speechiness = sp_track.get('speechiness')
-    lib_track.acousticness = sp_track.get('acousticness')
-    lib_track.instrumentalness = sp_track.get('instrumentalness')
-    lib_track.liveness = sp_track.get('liveness')
-    lib_track.valence = sp_track.get('valence')
-    lib_track.tempo = sp_track.get('tempo')
-    lib_track.time_signature = sp_track.get('time_signature')
+    if sp_track.get('name'): lib_track.name = sp_track.get('name')
+    if sp_track.get('duration_ms'): lib_track.duration_ms = sp_track.get('duration_ms')
+    if sp_track.get('track_number'): lib_track.track_number = sp_track.get('track_number')
+    if sp_track.get('danceability'): lib_track.danceability = sp_track.get('danceability')
+    if sp_track.get('energy'): lib_track.energy = sp_track.get('energy')
+    if sp_track.get('key'): lib_track.key = sp_track.get('key')
+    if sp_track.get('loudness'): lib_track.loudness = sp_track.get('loudness')
+    if sp_track.get('mode'): lib_track.mode = sp_track.get('mode')
+    if sp_track.get('speechiness'): lib_track.speechiness = sp_track.get('speechiness')
+    if sp_track.get('acousticness'): lib_track.acousticness = sp_track.get('acousticness')
+    if sp_track.get('instrumentalness'): lib_track.instrumentalness = sp_track.get('instrumentalness')
+    if sp_track.get('liveness'): lib_track.liveness = sp_track.get('liveness')
+    if sp_track.get('valence'): lib_track.valence = sp_track.get('valence')
+    if sp_track.get('tempo'): lib_track.tempo = sp_track.get('tempo')
+    if sp_track.get('time_signature'): lib_track.time_signature = sp_track.get('time_signature')
     return lib_track
+
+
+def get_tracks(offset=0, limit=None):
+    tracks = Track.query.limit(limit).offset(offset).all()
+    # print("limit:", limit)
+    # print("offset:", offset)
+    # print("tracks:", tracks)
+    return tracks
 
 
 def save_tracks(sp_tracks):
     for sp_track in sp_tracks:
+        if not sp_track: continue
         lib_track = Track.query.get(sp_track['id'])
         if lib_track is None:
+            print("track not found")
+            print("sp_track:", sp_track)
+            print("lib_track:", lib_track)
             lib_track = _make_db_track(sp_track)
         else:
             _update_lib_track(lib_track, sp_track)
+            # print("updated lib_track:", lib_track)
         db.session.add(lib_track)
     db.session.commit()
 
