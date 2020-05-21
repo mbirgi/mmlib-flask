@@ -84,6 +84,34 @@ def _update_lib_track(lib_track, sp_track):
     return lib_track
 
 
+def get_saved_albums():
+    return Album.query.filter_by(is_saved_album=True).all()
+
+
+def get_saved_albums_count():
+    return Album.query.filter_by(is_saved_album=True).count()
+
+
+def get_saved_playlists():
+    return Playlist.query.all()
+
+
+def get_saved_playlists_count():
+    return Playlist.query.count()
+
+
+def get_saved_tracks():
+    return Track.query.filter_by(is_saved_track=True).all()
+
+
+def get_saved_tracks_count():
+    return Track.query.filter_by(is_saved_track=True).count()
+
+
+def get_total_tracks_count():
+    return Track.query.count()
+
+
 def get_tracks(offset=0, limit=None):
     tracks = Track.query.limit(limit).offset(offset).all()
     # print("limit:", limit)

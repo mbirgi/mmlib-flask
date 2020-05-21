@@ -1,9 +1,11 @@
-from flask import render_template, redirect, url_for, flash, session
 import itertools
+
+from flask import render_template, redirect, url_for, flash, session
 
 from . import main
 from .forms import RefreshSpotifyForm, FilterLibraryForm, FilterAlbumsForm
-from ..core import refresh_library
+from .. import core
+from .. import library as lib
 
 
 @main.route('/', methods=['GET', 'POST'])
@@ -11,18 +13,18 @@ def home():
     form = RefreshSpotifyForm()
     if form.validate_on_submit():
         print("refreshing spotify library")
-        refresh_library()
+        core.refresh_library()
         return redirect(url_for('.home'))
-    # num_tracks = len(lib.get_saved_tracks())
-    # num_albums = len(lib.get_saved_albums())
-    # num_playlists = len(lib.get_saved_playlists())
-    # num_lib_tracks = lib.get_total_tracks()
+    num_tracks = lib.get_saved_tracks_count()
+    num_albums = lib.get_saved_albums_count()
+    num_playlists = lib.get_saved_playlists_count()
+    num_lib_tracks = lib.get_total_tracks_count()
     context = {
         'form': form,
-        # 'num_tracks': num_tracks,
-        # 'num_albums': num_albums,
-        # 'num_playlists': num_playlists,
-        # 'num_lib_tracks': num_lib_tracks,
+        'num_tracks': num_tracks,
+        'num_albums': num_albums,
+        'num_playlists': num_playlists,
+        'num_lib_tracks': num_lib_tracks,
         # 'last_import': lib.get_last_import_dt()
     }
     return render_template('home.html', context=context)
@@ -67,7 +69,8 @@ def saved_tracks():
 def saved_albums():
     form = FilterAlbumsForm()
     album_artists = list(itertools.chain.from_iterable([album['artists'] for album in lib.get_all_albums()]))
-    form.artist_filter.choices = set(sorted([(artist['id'], artist['name']) for artist in album_artists], key=lambda t: t[1]))
+    form.artist_filter.choices = set(
+        sorted([(artist['id'], artist['name']) for artist in album_artists], key=lambda t: t[1]))
     session['show_albums_filter'] = bool(session.get('sel_artist_ids'))
     # print("sel_artist_ids:", session.get('sel_artist_ids'))
     albums = lib.get_saved_albums_for_artists(artists=session.get('sel_artist_ids'))
