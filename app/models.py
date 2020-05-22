@@ -38,8 +38,8 @@ class Album(db.Model):
     name = db.Column(db.String(256))
     is_saved_album = db.Column(db.Boolean, default=False)
     year = db.Column(db.Integer)
-    artists = db.relationship('Artist', secondary=album_artists, backref=db.backref('albums'))
-    tracks = db.relationship('Track', backref='album')
+    artists = db.relationship('Artist', secondary=album_artists, backref=db.backref('albums'), lazy='joined')
+    tracks = db.relationship('Track', backref='album', lazy='joined')
     total_tracks = db.Column(db.Integer)
 
     def __repr__(self):
@@ -61,7 +61,7 @@ class Track(db.Model):
     name = db.Column(db.String(256))
     is_saved_track = db.Column(db.Boolean, default=False)
     album_id = db.Column(db.String, db.ForeignKey('albums.id'))
-    artists = db.relationship('Artist', secondary=track_artists, backref=db.backref('tracks'))
+    artists = db.relationship('Artist', secondary=track_artists, backref=db.backref('tracks'), lazy='joined')
     track_number = db.Integer()
     duration_ms = db.Column(db.Integer)
     danceability = db.Column(db.Float)
@@ -84,7 +84,7 @@ class Track(db.Model):
 class Playlist(db.Model):
     __tablename__ = 'playlists'
     id = db.Column(db.String(22), primary_key=True)  # use Spotify ID
-    tracks = db.relationship('Track', secondary=playlist_tracks, backref=db.backref('playlists'))
+    tracks = db.relationship('Track', secondary=playlist_tracks, backref=db.backref('playlists'), lazy='joined')
     name = db.Column(db.String(256), default="New Playlist")
     description = db.Column(db.String(256))
     is_saved_playlist = db.Column(db.Boolean, default=False)
@@ -97,7 +97,7 @@ class Tag(db.Model):
     __tablename__ = 'tags'
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(64), unique=True, index=True, nullable=False)
-    tracks = db.relationship('Track', secondary=track_tags, backref=db.backref('tags'))
+    tracks = db.relationship('Track', secondary=track_tags, backref=db.backref('tags'), lazy='joined')
 
     def __repr__(self):
         return f"<Tag {self.name}>"

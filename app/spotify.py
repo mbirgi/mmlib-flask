@@ -140,26 +140,5 @@ class Spotify():
 
     def get_audio_features(self, tracks):
         track_features = self._instance.audio_features(tracks)
-        # for i in range(0, len(track_ids), batch_size):
-        #     results = self._instance.audio_features(track_ids[i:i+batch_size])
-        #     features.extend(results)
-        # for track in tracks:
-        #     track_features = next((f for f in features if f['id'] == track['id']), None)
-        #     print(("track:", track))
-        # print("track_features:", track_features)
-        # if track_features is not None:
-        # track['danceability'] = track_features.get('danceability')
-        # track['energy'] = track_features.get('energy')
-        # track['key'] = track_features.get('key')
-        # track['loudness'] = track_features.get('loudness')
-        # track['mode'] = track_features.get('mode')
-        # track['speechiness'] = track_features.get('speechiness')
-        # track['acousticness'] = track_features.get('acousticness')
-        # track['instrumentalness'] = track_features.get('instrumentalness')
-        # track['liveness'] = track_features.get('liveness')
-        # track['valence'] = track_features.get('valence')
-        # track['tempo'] = track_features.get('tempo')
-        # track['duration_ms'] = track_features.get('duration_ms')
-        # track['time_signature'] = track_features.get('time_signature')
         return track_features
 

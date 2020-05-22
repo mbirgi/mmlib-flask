@@ -3,7 +3,7 @@ import os
 from datetime import datetime
 
 from app import db
-from app.models import Track, Artist, Album, Playlist
+from app.models import Track, Artist, Album, Playlist, Tag
 
 _data_folder = 'data'
 _admin_file = 'admin.json'
@@ -119,12 +119,52 @@ def get_total_tracks_count():
     return Track.query.count()
 
 
-def get_tracks(offset=0, limit=None):
-    tracks = Track.query.limit(limit).offset(offset).all()
-    # print("limit:", limit)
-    # print("offset:", offset)
+def _make_dict_tracks(lib_tracks):
+    tracks = []
+    for lib_track in lib_tracks:
+        track = dict(lib_track.__dict__)
+        track.pop('_sa_instance_state', None)
+        tracks.append(track)
+    return tracks
+
+
+def get_db_tracks(offset=0, limit=None):
+    return Track.query.limit(limit).offset(offset).all()
+
+
+def get_tracks(track_ids=None):
+    lib_tracks = []
+    for id in track_ids:
+        track = Track.query.get(id)
+        lib_tracks.append(track)
+    tracks = _make_dict_tracks(lib_tracks)
+    return tracks
+
+
+def get_artist_tracks(artist_ids):
+    tracks = []
+    for artist_id in artist_ids:
+        artist = Artist.query.get(artist_id)
+        # print("artist:", artist)
+        tracks.extend(artist.tracks)
     # print("tracks:", tracks)
     return tracks
+
+
+def get_all_tags():
+    return Tag.query.all()
+
+
+def get_all_albums():
+    return Album.query.all()
+
+
+def get_all_artists():
+    return Artist.query.all()
+
+
+def get_all_playlists():
+    return Playlist.query.all()
 
 
 def save_tracks(sp_tracks):
@@ -170,10 +210,12 @@ def update_saved_tracks(sp_tracks):
         db.session.add(lib_track)
     db.session.commit()
 
+
 def get_last_import_dt():
     with open(os.path.join(_data_folder, _admin_file), 'r', encoding='utf-8') as f:
         items = json.load(f)
     return datetime.fromisoformat(items.get('last_import_dt'))
+
 
 def update_last_import_dt():
     last_import_dt = datetime.utcnow().isoformat()

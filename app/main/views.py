@@ -1,4 +1,5 @@
 import itertools
+# import jsonpickle
 
 from flask import render_template, redirect, url_for, flash, session
 
@@ -32,32 +33,44 @@ def home():
 
 @main.route('/library', methods=['GET', 'POST'])
 def library():
-    filter_library_form = FilterLibraryForm(
-        danceability_min=0.0, danceability_max=1,
-        energy_min=0, energy_max=1,
-        speechiness_min=0, speechiness_max=1,
-        acousticness_min=0, acousticness_max=1,
-        instrumentalness_min=0, instrumentalness_max=1,
-        liveness_min=0, liveness_max=1,
-        valence_min=0, valence_max=1,
-        tempo_min=110, tempo_max=120,
-        # mode="Any"
-    )
-    filter_library_form.tags_filter.choices = lib.get_all_tags()
-    artist_choices = sorted([(artist['id'], artist['name']) for artist in lib.get_all_artists()], key=lambda t: t[1])
-    filter_library_form.artist_filter.choices = artist_choices
-    album_choices = sorted([(album['id'], album['name']) for album in lib.get_all_albums()], key=lambda t: t[1])
-    filter_library_form.album_filter.choices = album_choices
-    print(f"ok? {filter_library_form.validate_on_submit()}")
-    if filter_library_form.validate_on_submit():
-        print("filtering library")
-        print(f"tags: {filter_library_form.tags_filter.data}")
-        print(f"artists: {filter_library_form.artist_filter.data}")
-        print(f"albums: {filter_library_form.album_filter.data}")
-        return redirect(url_for('.library'))
-    elif filter_library_form.errors:
-        flash(filter_library_form.errors)
-    return render_template('library.html', filter_library_form=filter_library_form, selected_tracks=[])
+    library_filters = FilterLibraryForm()
+    library_filters.reset_all()
+    # if session.get('library_filters'):
+    #     print("session.get('library_filters'):", session.get('library_filters'))
+    #     for key, value in session.get('library_filters').items():
+    #         library_filters[key] = value
+
+    if library_filters.validate_on_submit():
+        if library_filters.apply.data:
+            print("button 'apply filters' pushed")
+            print(f"tags_filter_data: {library_filters.tags_filter.data}")
+            print(f"artist_filter_data: {library_filters.artist_filter.data}")
+            print(f"album_filter_data: {library_filters.album_filter.data}")
+            session['artist_filter_data'] = library_filters.artist_filter.data
+            db_tracks = lib.get_artist_tracks(session.get('artist_filter_data'))
+            track_ids = [track.id for track in db_tracks]
+            print("track_ids", track_ids)
+            session['selected_track_ids'] = track_ids
+            return redirect(url_for('.library'))
+        if library_filters.reset.data:
+            print("button 'reset filters' pushed")
+            del session['selected_track_ids']
+            del session['artist_filter_data']
+            return redirect(url_for('.library'))
+    elif library_filters.errors:
+        flash(library_filters.errors)
+
+    print("session.get('selected_track_ids'):", session.get('selected_track_ids'))
+    selected_track_ids = session.get('selected_track_ids')
+    print("selected_track_ids:", selected_track_ids)
+    if selected_track_ids:
+        selected_tracks = lib.get_tracks(track_ids=selected_track_ids)
+    else:
+        selected_tracks = []
+    print("selected_tracks:", selected_tracks)
+    library_filters.artist_filter.data = session.get('artist_filter_data')
+    return render_template('library.html', filter_library_form=library_filters,
+                           selected_tracks=selected_tracks)
 
 
 @main.route('/saved_tracks', methods=['GET', 'POST'])
@@ -98,3 +111,22 @@ def saved_albums():
 @main.route('/saved_playlists', methods=['GET', 'POST'])
 def saved_playlists():
     return render_template('saved_playlists.html', playlists=lib.get_saved_playlists())
+
+
+# def _init_library_filters():
+#     library_filters = FilterLibraryForm(
+#         danceability_min=0.0, danceability_max=1,
+#         energy_min=0, energy_max=1,
+#         speechiness_min=0, speechiness_max=1,
+#         acousticness_min=0, acousticness_max=1,
+#         instrumentalness_min=0, instrumentalness_max=1,
+#         liveness_min=0, liveness_max=1,
+#         valence_min=0, valence_max=1,
+#         tempo_min=110, tempo_max=120,
+#     )
+#     library_filters.tags_filter.choices = lib.get_all_tags()
+#     artist_choices = sorted([(artist.id, artist.name) for artist in lib.get_all_artists()], key=lambda t: t[1])
+#     library_filters.artist_filter.choices = artist_choices
+#     album_choices = sorted([(album.id, album.name) for album in lib.get_all_albums()], key=lambda t: t[1])
+#     library_filters.album_filter.choices = album_choices
+#     return library_filters

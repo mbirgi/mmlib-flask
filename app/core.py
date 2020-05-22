@@ -11,12 +11,12 @@ def _update_audio_features():
     print("updating audio features")
     batch_size = sp.af_batch_size
     offset = 0
-    batch = lib.get_tracks(limit=batch_size, offset=offset)
+    batch = lib.get_db_tracks(limit=batch_size, offset=offset)
     while len(batch) > 0:
         features = sp.get_audio_features([track.id for track in batch])
         lib.save_tracks(features)
         offset += batch_size
-        batch = lib.get_tracks(limit=batch_size, offset=offset)
+        batch = lib.get_db_tracks(limit=batch_size, offset=offset)
 
 
 def _get_playlist_tracks(sp_playlists):

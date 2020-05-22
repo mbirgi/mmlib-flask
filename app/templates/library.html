@@ -60,28 +60,8 @@
                 filter_library_form.tempo_min(class_="input-number-sm"),
                 filter_library_form.tempo_max(class_="input-number-sm")) }}
         </div>
-{#        <div class="row mt-1">#}
-{#            <div class="col-sm-3">#}
-{#                <div class="col-sm-7 text-right">{{ filter_library_form.mode.label }}</div>#}
-{#                <div class="col-sm-5 px-0">#}
-{#                    {{ filter_library_form.mode() }}#}
-{#                </div>#}
-{#            </div>#}
-{#            <div class="col-sm-3">#}
-{#                <div class="col-sm-7 text-right">{{ filter_library_form.key.label }}</div>#}
-{#                <div class="col-sm-5 px-0">#}
-{#                    {{ filter_library_form.key(class_="input-text-sm") }}#}
-{#                </div>#}
-{#            </div>#}
-{#            <div class="col-sm-3">#}
-{#                <div class="col-sm-7 text-right">{{ filter_library_form.time_signature.label }}</div>#}
-{#                <div class="col-sm-5 px-0">#}
-{#                    {{ filter_library_form.time_signature(class_="input-text-sm") }}#}
-{#                </div>#}
-{#            </div>#}
-{#        </div>#}
-        <button class="btn btn-default mt-2" type="submit">Apply Filters</button>
-        <button type="reset" class="btn btn-default mt-2">Reset</button>
+        {{ filter_library_form.apply(class_="btn btn-default mt-2") }}
+        {{ filter_library_form.reset(class_="btn btn-default mt-2") }}
         <hr>
     </form>
     <form method="POST" action="/library">
@@ -104,19 +84,21 @@
             <th>Track Artists</th>
             <th class="text-right">Duration (ms)</th>
             <th>Tags</th>
-            <th>Edit</th>
+{#            <th>Edit</th>#}
         </thead>
         <tbody>
-            {% for track in selected_tracks %}
-                <tr>
-                    <td>{{ track.name }}</td>
-                    <td>{% for artist in track.artists %}
-                        {{ artist.name }}{% if not loop.last %}, {% endif %}
-                    {% endfor %}</td>
-                    <td class="text-right">{{ format_duration(track.duration_ms) }}</td>
-                    <td>{{ track.tags }}</td>
-                </tr>
-            {% endfor %}
+            {% if (selected_tracks | length()) > 0 %}
+                {% for track in selected_tracks %}
+                    <tr>
+                        <td>{{ track.name }}</td>
+                        <td>{% for artist in track.artists %}
+                            {{ artist.name }}{% if not loop.last %}, {% endif %}
+                        {% endfor %}</td>
+                        <td class="text-right">{{ format_duration(track.duration_ms) }}</td>
+                        <td>{{ track.tags }}</td>
+                    </tr>
+                {% endfor %}
+            {% endif %}
         </tbody>
     </table>
 {% endblock %}
