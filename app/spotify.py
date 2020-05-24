@@ -2,36 +2,10 @@ import os
 
 import spotipy
 import spotipy.util
+from flask import current_app as app
 
-from app.utils import debug
+from mmlib import dev_mode
 
-_dev = bool(os.getenv('MMLIB_DEV_MODE') == '1')
-print("dev mode:", _dev)
-
-
-def import_spotify_library():
-    sp = Spotify()
-    saved_tracks = sp.get_saved_tracks()
-    saved_albums = sp.get_saved_albums()
-    playlists = sp.get_saved_playlists()
-    return {
-        "saved_tracks": saved_tracks,
-        "saved_albums": saved_albums,
-        "playlists": playlists
-    }
-
-
-# def get_audio_features_for_tracks(track_ids):
-#     """Gets the audio features for several tracks
-#
-#     Args:
-#         track_ids (list): a list of spotify track ids
-#
-#     Returns:
-#         list: a list of dicts like [{id:<track_id>, tempo:<tempo>, ...}, ...]
-#     """
-#     sp = Spotify()
-#     return sp.get_audio_features_for_tracks(track_ids)
 
 def _login(username, scope):
     spotify_auth_params = {
@@ -52,7 +26,8 @@ class Spotify():
     af_batch_size = 50
 
     def __init__(self, username='mbirgi', scope='user-library-read'):
-        self._dev = _dev
+        # print(f"dev mode: {_dev}")
+        self._dev = dev_mode
         self._instance = _login(username, scope)
         # self.market = 'CH'
 
@@ -70,7 +45,7 @@ class Spotify():
         albums = results['items']
         if (self._dev) and (len(albums) > 3):
             del albums[3:]
-            print("dev mode: albums curtailed")
+            app.logger.debug("dev mode: albums curtailed")
         else:
             while results['next']:
                 results = self._instance.next(results)
@@ -82,7 +57,8 @@ class Spotify():
         playlists = results['items']
         if self._dev and len(playlists) > 3:
             del playlists[3:]
-            debug("playlists", [pl['name'] for pl in playlists])
+            app.logger.debug("dev mode: playlists curtailed")
+            app.logger.debug(f"playlists: {[pl['name'] for pl in playlists]}")
         else:
             while results['next']:
                 results = self._instance.next(results)
@@ -141,4 +117,3 @@ class Spotify():
     def get_audio_features(self, tracks):
         track_features = self._instance.audio_features(tracks)
         return track_features
-

@@ -2,6 +2,8 @@ import json
 import os
 from datetime import datetime
 
+from flask import current_app as app
+
 from app import db
 from app.models import Track, Artist, Album, Playlist, Tag
 
@@ -191,11 +193,11 @@ def get_filtered_track_ids(tags_filter=[], artist_filter=[], album_filter=[]):
                         filtered_tracks.append(track)
                         break
                 # else:
-                    # print("artist not ok")
+                # print("artist not ok")
             # break
         # else:
         #     pass
-    print("filtered_tracks:", filtered_tracks)
+    app.logger.debug(f"filtered_tracks: {filtered_tracks}")
     return [track.id for track in filtered_tracks]
 
 

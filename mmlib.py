@@ -6,9 +6,11 @@ from app import create_app, db
 from app.models import Album, Artist, Playlist, Tag, Track
 
 load_dotenv()
+dev_mode = bool(os.getenv('MMLIB_DEV_MODE') == '1')
 
 app = create_app(os.getenv('FLASK_CONFIG') or 'default')
-
+app.logger.debug("app started")
+app.logger.debug(f"dev mode: {dev_mode}")
 
 @app.shell_context_processor
 def make_shell_context():
