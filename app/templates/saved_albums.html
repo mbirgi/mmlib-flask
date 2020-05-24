@@ -15,33 +15,33 @@
     <div class="page-header">
         <h1>Spotify Saved Albums</h1>
     </div>
-    <form method="POST" action="/saved_albums">
-        {{ form.hidden_tag() }}
-        <div class="row">
-            <div class="col-md-6">
-                <div>{{ form.artist_filter.label }}:</div>
-                <div>{{ form.artist_filter(class="lib-filter", size="10") }}</div>
-                <div>{{ form.filter_artists(class="btn btn-default mt-2") }}</div>
-            </div>
-            {% if show_albums_filter %}
-            <div class="col-md-6">
-                <div>{{ form.album_filter.label }}:</div>
-                <div>{{ form.album_filter(class="lib-filter", size="10") }}</div>
-                <div>{{ form.filter_albums(class="btn btn-default mt-2") }}</div>
-            </div>
-            {%  endif %}
-        </div>
-        <hr>
-        <div class="row">
-            <div class="col-md-12">
-                {{ form.reset_filters(class="btn btn-default") }}
-            </div>
-        </div>
-        <hr>
-    </form>
-    <div>selected artists: {{ debug_selected_artists }}</div>
-    <div>selected albums: {{ debug_selected_albums }}</div>
-    <div>show_albums_filter: {{ show_albums_filter }}</div>
+{#    <form method="POST" action="/saved_albums">#}
+{#        {{ form.hidden_tag() }}#}
+{#        <div class="row">#}
+{#            <div class="col-md-6">#}
+{#                <div>{{ form.artist_filter.label }}:</div>#}
+{#                <div>{{ form.artist_filter(class="lib-filter", size="10") }}</div>#}
+{#                <div>{{ form.filter_artists(class="btn btn-default mt-2") }}</div>#}
+{#            </div>#}
+{#            {% if show_albums_filter %}#}
+{#            <div class="col-md-6">#}
+{#                <div>{{ form.album_filter.label }}:</div>#}
+{#                <div>{{ form.album_filter(class="lib-filter", size="10") }}</div>#}
+{#                <div>{{ form.filter_albums(class="btn btn-default mt-2") }}</div>#}
+{#            </div>#}
+{#            {%  endif %}#}
+{#        </div>#}
+{#        <hr>#}
+{#        <div class="row">#}
+{#            <div class="col-md-12">#}
+{#                {{ form.reset_filters(class="btn btn-default") }}#}
+{#            </div>#}
+{#        </div>#}
+{#        <hr>#}
+{#    </form>#}
+{#    <div>selected artists: {{ debug_selected_artists }}</div>#}
+{#    <div>selected albums: {{ debug_selected_albums }}</div>#}
+{#    <div>show_albums_filter: {{ show_albums_filter }}</div>#}
     <table class="table table-hover table-bordered table-condensed">
         <thead>
             <th>Name</th>
