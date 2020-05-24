@@ -1,6 +1,6 @@
 import itertools
-# import jsonpickle
 
+from flask import current_app as app
 from flask import render_template, redirect, url_for, flash, session
 
 from . import main
@@ -42,25 +42,37 @@ def library():
 
     if library_filters.validate_on_submit():
         if library_filters.apply.data:
-            print("button 'apply filters' pushed")
-            print(f"tags_filter_data: {library_filters.tags_filter.data}")
-            print(f"artist_filter_data: {library_filters.artist_filter.data}")
-            print(f"album_filter_data: {library_filters.album_filter.data}")
+            app.logger.debug("button 'apply filters' pushed")
+            app.logger.debug(f"tags_filter_data: {library_filters.tags_filter.data}")
+            app.logger.debug(f"artist_filter_data: {library_filters.artist_filter.data}")
+            app.logger.debug(f"album_filter_data: {library_filters.album_filter.data}")
+            session['tags_filter_data'] = library_filters.tags_filter.data
             session['artist_filter_data'] = library_filters.artist_filter.data
-            db_tracks = lib.get_artist_tracks(session.get('artist_filter_data'))
-            track_ids = [track.id for track in db_tracks]
-            print("track_ids", track_ids)
-            session['selected_track_ids'] = track_ids
+            session['album_filter_data'] = library_filters.album_filter.data
+            selected_track_ids = lib.get_filtered_track_ids(
+                tags_filter=session.get('tags_filter_data'),
+                artist_filter=session.get('artist_filter_data'),
+                album_filter=session.get('album_filter_data')
+            )
+            print("selected_track_ids:", selected_track_ids)
+            # from mmlib import app
+            app.logger.debug(f'selected_track_ids: {selected_track_ids}')
+            # db_tracks = lib.get_artist_tracks(session.get('artist_filter_data'))
+            # track_ids = [track.id for track in db_tracks]
+            # print("track_ids", track_ids)
+            session['selected_track_ids'] = selected_track_ids
             return redirect(url_for('.library'))
         if library_filters.reset.data:
             print("button 'reset filters' pushed")
             del session['selected_track_ids']
+            del session['tags_filter_data']
             del session['artist_filter_data']
+            del session['album_filter_data']
             return redirect(url_for('.library'))
     elif library_filters.errors:
         flash(library_filters.errors)
 
-    print("session.get('selected_track_ids'):", session.get('selected_track_ids'))
+    # print("session.get('selected_track_ids'):", session.get('selected_track_ids'))
     selected_track_ids = session.get('selected_track_ids')
     print("selected_track_ids:", selected_track_ids)
     if selected_track_ids:
@@ -68,7 +80,9 @@ def library():
     else:
         selected_tracks = []
     print("selected_tracks:", selected_tracks)
+    library_filters.tags_filter.data = session.get('tags_filter_data')
     library_filters.artist_filter.data = session.get('artist_filter_data')
+    library_filters.album_filter.data = session.get('album_filter_data')
     return render_template('library.html', filter_library_form=library_filters,
                            selected_tracks=selected_tracks)
 
@@ -111,7 +125,6 @@ def saved_albums():
 @main.route('/saved_playlists', methods=['GET', 'POST'])
 def saved_playlists():
     return render_template('saved_playlists.html', playlists=lib.get_saved_playlists())
-
 
 # def _init_library_filters():
 #     library_filters = FilterLibraryForm(

@@ -141,14 +141,62 @@ def get_tracks(track_ids=None):
     return tracks
 
 
+def get_album_tracks(album_ids):
+    tracks = []
+    for album_id in album_ids:
+        album = Album.query.get(album_id)
+        tracks.extend(album.tracks)
+    return tracks
+
+
 def get_artist_tracks(artist_ids):
     tracks = []
     for artist_id in artist_ids:
         artist = Artist.query.get(artist_id)
-        # print("artist:", artist)
         tracks.extend(artist.tracks)
-    # print("tracks:", tracks)
     return tracks
+
+
+def get_tagged_tracks(tag_ids):
+    tracks = []
+    for tag_id in tag_ids:
+        tag = Tag.query.get(tag_id)
+        tracks.extend(tag.tracks)
+    return tracks
+
+
+def get_filtered_track_ids(tags_filter=[], artist_filter=[], album_filter=[]):
+    # if tags_filter is None: tags_filter = Tag.query.all()
+    # if artist_filter is None: artist_filter = Artist.query.all()
+    # if album_filter is None: album_filter = Album.query.all()
+    all_tracks = Track.query.all()
+    filtered_tracks = []
+    for track in all_tracks:
+        # print("track.album_id:", track.album_id)
+        # print("album_filter:", album_filter)
+        if len(album_filter) == 0 or track.album_id in album_filter:
+            # print("album ok")
+            for artist in track.artists:
+                # print("artist.id:", artist.id)
+                # print("artist_filter:", artist_filter)
+                if len(artist_filter) == 0 or artist.id in artist_filter:
+                    # print("artist ok")
+                    # print("track.tags:", track.tags)
+                    # print("tags_filter:", tags_filter)
+                    for tag in track.tags:
+                        if tag.id in tags_filter:
+                            tags_ok = True
+                    if len(tags_filter) == 0 or tags_ok:
+                        # print("tags ok")
+                        filtered_tracks.append(track)
+                        break
+                # else:
+                    # print("artist not ok")
+            # break
+        # else:
+        #     pass
+    print("filtered_tracks:", filtered_tracks)
+    return [track.id for track in filtered_tracks]
 
 
 def get_all_tags():
