@@ -25,23 +25,38 @@
                 </button>
                 <a class="navbar-brand" href="{{ url_for('main.home') }}">Memo's Music Library</a>
             </div>
-                    <div class="navbar-collapse collapse">
-                        <ul class="nav navbar-nav">
-                            <li><a href="{{ url_for('main.home') }}">Home</a></li>
-                        </ul>
-                        <ul class="nav navbar-nav">
-                            <li><a href="{{ url_for('main.library') }}">Library</a></li>
-                        </ul>
-                        <ul class="nav navbar-nav">
-                            <li><a href="{{ url_for('main.saved_tracks') }}">Tracks</a></li>
-                        </ul>
-                        <ul class="nav navbar-nav">
-                            <li><a href="{{ url_for('main.saved_albums') }}">Albums</a></li>
-                        </ul>
-                        <ul class="nav navbar-nav">
-                            <li><a href="{{ url_for('main.saved_playlists') }}">Playlists</a></li>
-                        </ul>
-                    </div>
+            <div class="navbar-collapse collapse">
+                {% set navigation_bar = [
+                    ('main.home', 'home', 'Home'),
+                    ('main.library', 'library', 'Library'),
+                    ('main.saved_tracks', 'saved_tracks', 'Liked Tracks'),
+                    ('main.saved_albums', 'saved_albums', 'Liked Albums'),
+                    ('main.saved_playlists', 'saved_playlists', 'Playlists'),
+                ] -%}
+                {% set active_page = active_page -%}
+                {% for route, id, caption in navigation_bar %}
+                    <ul class="nav navbar-nav">
+                        <li {% if id == active_page %} class="active" {% endif %}><a
+                                href="{{ url_for(route|e) }}">{{ caption|e }}</a></li>
+                    </ul>
+                {% endfor %}
+                {#                <ul class="nav navbar-nav">#}
+                {#                    <li {% if id == active_page %} class="active"{% endif %}><a href="{{ url_for('main.library') }}">Library</a>#}
+                {#                    </li>#}
+                {#                </ul>#}
+                {#                <ul class="nav navbar-nav">#}
+                {#                    <li {% if id == active_page %} class="active"{% endif %}><a#}
+                {#                            href="{{ url_for('main.saved_tracks') }}">Liked Tracks</a></li>#}
+                {#                </ul>#}
+                {#                <ul class="nav navbar-nav">#}
+                {#                    <li {% if id == active_page %} class="active"{% endif %}><a#}
+                {#                            href="{{ url_for('main.saved_albums') }}">Liked Albums</a></li>#}
+                {#                </ul>#}
+                {#                <ul class="nav navbar-nav">#}
+                {#                    <li {% if id == active_page %} class="active"{% endif %}><a#}
+                {#                            href="{{ url_for('main.saved_playlists') }}">Playlists</a></li>#}
+                {#                </ul>#}
+            </div>
         </div>
     </div>
 {% endblock %}

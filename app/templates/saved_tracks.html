@@ -1,5 +1,7 @@
 {% extends "base.html" %}
 
+{% set active_page = "saved_tracks" %}
+
 {% macro format_duration(millis) -%}
     {{ (((millis/(1000*60))|round)%60)|int }}:{{ '{:>02d}'.format((((millis/1000)|round)%60)|int) }}
 {%- endmacro %}

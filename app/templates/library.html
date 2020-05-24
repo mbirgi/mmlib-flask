@@ -1,6 +1,8 @@
 {% extends "base.html" %}
 {% import "bootstrap/wtf.html" as wtf %}
 
+{% set active_page = "library" %}
+
 {% macro format_duration(millis) -%}
     {{ (((millis/(1000*60))|round)%60)|int }}:{{ '{:>02d}'.format((((millis/1000)|round)%60)|int) }}
 {%- endmacro %}
@@ -63,17 +65,16 @@
         {{ filter_library_form.apply(class_="btn btn-default mt-2") }}
         {{ filter_library_form.reset(class_="btn btn-default mt-2") }}
         <hr>
-    </form>
-    <form method="POST" action="/library">
         <div class="row">
             <div class="col-sm-12">Total selected tracks: {{ selected_tracks | length }}</div>
         </div>
         <br>
         <div class="row">
             <div class="col-sm-12">
-                <button class="btn btn-default" type="submit">View Tracks</button>
-                <button class="btn btn-default" type="submit">Edit Tags</button>
-                <button class="btn btn-default" type="submit">Save as Playlist</button>
+                {{ filter_library_form.edit_tags(class_="btn btn-default") }}
+                {{ filter_library_form.save_playlist(class_="btn btn-default") }}
+{#                <button class="btn btn-default" type="submit">Edit Tags</button>#}
+{#                <button class="btn btn-default" type="submit">Save as Playlist</button>#}
             </div>
         </div>
     </form>
