@@ -1,6 +1,9 @@
 # Spotipy cache
 .cache-mbirgi
 
+# simplekv session data
+data/session/
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
