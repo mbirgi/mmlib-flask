@@ -73,8 +73,6 @@
             <div class="col-sm-12">
                 {{ filter_library_form.edit_tags(class_="btn btn-default") }}
                 {{ filter_library_form.save_playlist(class_="btn btn-default") }}
-{#                <button class="btn btn-default" type="submit">Edit Tags</button>#}
-{#                <button class="btn btn-default" type="submit">Save as Playlist</button>#}
             </div>
         </div>
     </form>
@@ -83,9 +81,9 @@
         <thead>
             <th>Track Name</th>
             <th>Track Artists</th>
+            <th>Album</th>
             <th class="text-right">Duration (ms)</th>
             <th>Tags</th>
-{#            <th>Edit</th>#}
         </thead>
         <tbody>
             {% if (selected_tracks | length()) > 0 %}
@@ -95,6 +93,7 @@
                         <td>{% for artist in track.artists %}
                             {{ artist.name }}{% if not loop.last %}, {% endif %}
                         {% endfor %}</td>
+                        <td>{{ track.album.name }}</td>
                         <td class="text-right">{{ format_duration(track.duration_ms) }}</td>
                         <td>{{ track.tags }}</td>
                     </tr>
@@ -102,4 +101,5 @@
             {% endif %}
         </tbody>
     </table>
+
 {% endblock %}

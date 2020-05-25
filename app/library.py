@@ -124,8 +124,14 @@ def get_total_tracks_count():
 def _make_dict_tracks(lib_tracks):
     tracks = []
     for lib_track in lib_tracks:
+        app.logger.debug(f"lib_track: {lib_track}")
         track = dict(lib_track.__dict__)
         track.pop('_sa_instance_state', None)
+        track['artists'] = []
+        for lib_artist in lib_track.artists:
+            track['artists'].append({'id': lib_artist.id, 'name': lib_artist.name})
+        track['album'] = {'id': lib_track.album_id, 'name': Album.query.get(lib_track.album_id).name}
+        app.logger.debug(f"track: {track}")
         tracks.append(track)
     return tracks
 
