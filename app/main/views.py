@@ -4,7 +4,7 @@ from flask import current_app as app
 from flask import render_template, redirect, url_for, flash, session
 
 from . import main
-from .forms import RefreshSpotifyForm, LibraryForm, FilterAlbumsForm
+from .forms import RefreshSpotifyForm, library_form_builder, FilterAlbumsForm
 from .. import core
 from .. import library as lib
 
@@ -33,53 +33,67 @@ def home():
 
 @main.route('/library', methods=['GET', 'POST'])
 def library():
-    library_form = LibraryForm()
+    library_form = library_form_builder([])
 
     if library_form.validate_on_submit():
         if library_form.apply.data:
-            app.logger.debug("button 'apply filters' pushed")
+            app.logger.debug("button: apply filters")
             app.logger.debug(f"tags_filter_data: {library_form.tags_filter.data}")
             app.logger.debug(f"artist_filter_data: {library_form.artist_filter.data}")
             app.logger.debug(f"album_filter_data: {library_form.album_filter.data}")
             session['tags_filter_data'] = library_form.tags_filter.data
             session['artist_filter_data'] = library_form.artist_filter.data
             session['album_filter_data'] = library_form.album_filter.data
-            selected_track_ids = lib.get_filtered_track_ids(
-                tags_filter=session.get('tags_filter_data'),
-                artist_filter=session.get('artist_filter_data'),
-                album_filter=session.get('album_filter_data')
+            filtered_track_ids = lib.get_filtered_track_ids(
+                tags_filter=session.get('tags_filter_data') if session.get('tags_filter_data') else [],
+                artist_filter=session.get('artist_filter_data') if session.get('artist_filter_data') else [],
+                album_filter=session.get('album_filter_data') if session.get('album_filter_data') else []
             )
-            app.logger.debug(f'selected_track_ids: {selected_track_ids}')
-            session['selected_track_ids'] = selected_track_ids
-            # TODO: use redis for session mgt: memory size!
+            app.logger.debug(f'filtered_track_ids: {filtered_track_ids}')
+            session['filtered_track_ids'] = filtered_track_ids
             return redirect(url_for('.library'))
         if library_form.reset.data:
-            app.logger.debug("button 'reset filters' pushed")
-            del session['selected_track_ids']
+            app.logger.debug("button: reset filters")
+            del session['filtered_track_ids']
             del session['tags_filter_data']
             del session['artist_filter_data']
             del session['album_filter_data']
             return redirect(url_for('.library'))
         if library_form.edit_tags.data:
-            app.logger.debug(f"button 'edit tags' pushed")
+            app.logger.debug(f"button: edit tags")
         if library_form.save_playlist.data:
-            app.logger.debug(f"button 'save playlist' pushed")
+            app.logger.debug(f"button: save playlist")
+        if library_form.select_all.data:
+            app.logger.debug(f"button: select all tracks")
+            session['selected_track_ids'] = session.get('filtered_track_ids')
+        if library_form.unselect_all.data:
+            app.logger.debug(f"button: unselect all tracks")
 
     elif library_form.errors:
         flash(library_form.errors)
 
+    filtered_track_ids = session.get('filtered_track_ids')
     selected_track_ids = session.get('selected_track_ids')
-    app.logger.debug(f"selected_track_ids: {selected_track_ids}")
-    if selected_track_ids:
-        selected_tracks = lib.get_tracks(track_ids=selected_track_ids)
+    app.logger.debug(f"session['filtered_track_ids']: {filtered_track_ids}")
+    app.logger.debug(f"session['selected_track_ids']: {selected_track_ids}")
+    if filtered_track_ids:
+        filtered_tracks = lib.get_tracks(track_ids=filtered_track_ids)
     else:
-        selected_tracks = []
-    app.logger.debug(f"selected_tracks: {selected_tracks}")
+        filtered_tracks = []
+    app.logger.debug(f"filtered_tracks: {filtered_tracks}")
+    library_form = library_form_builder(filtered_tracks)
     library_form.tags_filter.data = session.get('tags_filter_data')
     library_form.artist_filter.data = session.get('artist_filter_data')
     library_form.album_filter.data = session.get('album_filter_data')
-    return render_template('library.html', filter_library_form=library_form,
-                           selected_tracks=selected_tracks)
+    if selected_track_ids:
+        # sel_args = {}
+        for track_id in selected_track_ids:
+            attr = getattr(library_form, track_id)
+            attr.data = True
+            app.logger.debug(f"attr: {attr}")
+            # sel_args.update({track_id: True})
+    return render_template('library.html', library_form=library_form,
+                           filtered_tracks=filtered_tracks)
 
 
 @main.route('/saved_tracks', methods=['GET', 'POST'])

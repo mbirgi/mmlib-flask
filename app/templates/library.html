@@ -19,51 +19,51 @@
         <h1>The Library <small>(all tracks)</small></h1>
     </div>
     <form method="POST" action="/library">
-        {{ filter_library_form.hidden_tag() }}
+        {{ library_form.hidden_tag() }}
         <div class="row">
             <div class="col-md-4">
-                <div>{{ filter_library_form.tags_filter.label }}:</div>
-                <div>{{ filter_library_form.tags_filter(class="lib-filter", size="10") }}</div>
+                <div>{{ library_form.tags_filter.label }}:</div>
+                <div>{{ library_form.tags_filter(class="lib-filter", size="10") }}</div>
             </div>
             <div class="col-md-4">
-                <div>{{ filter_library_form.artist_filter.label }}:</div>
-                <div>{{ filter_library_form.artist_filter(class="lib-filter", size="10") }}</div>
+                <div>{{ library_form.artist_filter.label }}:</div>
+                <div>{{ library_form.artist_filter(class="lib-filter", size="10") }}</div>
             </div>
             <div class="col-md-4">
-                <div>{{ filter_library_form.album_filter.label }}:</div>
-                <div>{{ filter_library_form.album_filter(class="lib-filter", size="10") }}</div>
+                <div>{{ library_form.album_filter.label }}:</div>
+                <div>{{ library_form.album_filter(class="lib-filter", size="10") }}</div>
             </div>
         </div>
         <div class="row mt-1">
             {{ af_input('Danceability',
-                filter_library_form.danceability_min(class_="input-number-sm"),
-                filter_library_form.danceability_max(class_="input-number-sm")) }}
+                library_form.danceability_min(class_="input-number-sm"),
+                library_form.danceability_max(class_="input-number-sm")) }}
             {{ af_input('Energy',
-                filter_library_form.energy_min(class_="input-number-sm"),
-                filter_library_form.energy_max(class_="input-number-sm")) }}
+                library_form.energy_min(class_="input-number-sm"),
+                library_form.energy_max(class_="input-number-sm")) }}
             {{ af_input('Speechiness',
-                filter_library_form.speechiness_min(class_="input-number-sm"),
-                filter_library_form.speechiness_max(class_="input-number-sm")) }}
+                library_form.speechiness_min(class_="input-number-sm"),
+                library_form.speechiness_max(class_="input-number-sm")) }}
             {{ af_input('Acousticness',
-                filter_library_form.acousticness_min(class_="input-number-sm"),
-                filter_library_form.acousticness_max(class_="input-number-sm")) }}
+                library_form.acousticness_min(class_="input-number-sm"),
+                library_form.acousticness_max(class_="input-number-sm")) }}
         </div>
         <div class="row mt-1">
             {{ af_input('Instrumentalness',
-                filter_library_form.instrumentalness_min(class_="input-number-sm"),
-                filter_library_form.instrumentalness_max(class_="input-number-sm")) }}
+                library_form.instrumentalness_min(class_="input-number-sm"),
+                library_form.instrumentalness_max(class_="input-number-sm")) }}
             {{ af_input('Liveness',
-                filter_library_form.liveness_min(class_="input-number-sm"),
-                filter_library_form.liveness_max(class_="input-number-sm")) }}
+                library_form.liveness_min(class_="input-number-sm"),
+                library_form.liveness_max(class_="input-number-sm")) }}
             {{ af_input('Valence',
-                filter_library_form.valence_min(class_="input-number-sm"),
-                filter_library_form.valence_max(class_="input-number-sm")) }}
+                library_form.valence_min(class_="input-number-sm"),
+                library_form.valence_max(class_="input-number-sm")) }}
             {{ af_input('Tempo',
-                filter_library_form.tempo_min(class_="input-number-sm"),
-                filter_library_form.tempo_max(class_="input-number-sm")) }}
+                library_form.tempo_min(class_="input-number-sm"),
+                library_form.tempo_max(class_="input-number-sm")) }}
         </div>
-        {{ filter_library_form.apply(class_="btn btn-default mt-2") }}
-        {{ filter_library_form.reset(class_="btn btn-default mt-2") }}
+        {{ library_form.apply(class_="btn btn-default mt-2") }}
+        {{ library_form.reset(class_="btn btn-default mt-2") }}
         <hr>
         <div class="row">
             <div class="col-sm-12">Total selected tracks: {{ selected_tracks | length }}</div>
@@ -71,14 +71,17 @@
         <br>
         <div class="row">
             <div class="col-sm-12">
-                {{ filter_library_form.edit_tags(class_="btn btn-default") }}
-                {{ filter_library_form.save_playlist(class_="btn btn-default") }}
+                {{ library_form.select_all(class_="btn btn-default") }}
+                {{ library_form.unselect_all(class_="btn btn-default") }}
+                {{ library_form.edit_tags(class_="btn btn-default") }}
+                {{ library_form.save_playlist(class_="btn btn-default") }}
             </div>
         </div>
     </form>
     <hr>
     <table class="table table-hover table-bordered table-condensed">
         <thead>
+            <th>Sel.</th>
             <th>Track Name</th>
             <th>Track Artists</th>
             <th>Album</th>
@@ -86,9 +89,10 @@
             <th>Tags</th>
         </thead>
         <tbody>
-            {% if (selected_tracks | length()) > 0 %}
-                {% for track in selected_tracks %}
+            {% if (filtered_tracks | length()) > 0 %}
+                {% for track in filtered_tracks %}
                     <tr>
+                        <td>{{ (library_form | attr(track.id)) }}</td>
                         <td>{{ track.name }}</td>
                         <td>{% for artist in track.artists %}
                             {{ artist.name }}{% if not loop.last %}, {% endif %}

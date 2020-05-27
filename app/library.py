@@ -124,14 +124,14 @@ def get_total_tracks_count():
 def _make_dict_tracks(lib_tracks):
     tracks = []
     for lib_track in lib_tracks:
-        app.logger.debug(f"lib_track: {lib_track}")
+        # app.logger.debug(f"lib_track: {lib_track}")
         track = dict(lib_track.__dict__)
         track.pop('_sa_instance_state', None)
         track['artists'] = []
         for lib_artist in lib_track.artists:
             track['artists'].append({'id': lib_artist.id, 'name': lib_artist.name})
         track['album'] = {'id': lib_track.album_id, 'name': Album.query.get(lib_track.album_id).name}
-        app.logger.debug(f"track: {track}")
+        # app.logger.debug(f"track: {track}")
         tracks.append(track)
     return tracks
 
@@ -145,8 +145,8 @@ def get_tracks(track_ids=None):
     for id in track_ids:
         track = Track.query.get(id)
         lib_tracks.append(track)
-    tracks = _make_dict_tracks(lib_tracks)
-    return tracks
+    # tracks = _make_dict_tracks(lib_tracks)
+    return lib_tracks
 
 
 def get_album_tracks(album_ids):
@@ -174,35 +174,18 @@ def get_tagged_tracks(tag_ids):
 
 
 def get_filtered_track_ids(tags_filter=[], artist_filter=[], album_filter=[]):
-    # if tags_filter is None: tags_filter = Tag.query.all()
-    # if artist_filter is None: artist_filter = Artist.query.all()
-    # if album_filter is None: album_filter = Album.query.all()
     all_tracks = Track.query.all()
     filtered_tracks = []
     for track in all_tracks:
-        # print("track.album_id:", track.album_id)
-        # print("album_filter:", album_filter)
         if len(album_filter) == 0 or track.album_id in album_filter:
-            # print("album ok")
             for artist in track.artists:
-                # print("artist.id:", artist.id)
-                # print("artist_filter:", artist_filter)
                 if len(artist_filter) == 0 or artist.id in artist_filter:
-                    # print("artist ok")
-                    # print("track.tags:", track.tags)
-                    # print("tags_filter:", tags_filter)
                     for tag in track.tags:
                         if tag.id in tags_filter:
                             tags_ok = True
                     if len(tags_filter) == 0 or tags_ok:
-                        # print("tags ok")
                         filtered_tracks.append(track)
                         break
-                # else:
-                # print("artist not ok")
-            # break
-        # else:
-        #     pass
     app.logger.debug(f"filtered_tracks: {filtered_tracks}")
     return [track.id for track in filtered_tracks]
 

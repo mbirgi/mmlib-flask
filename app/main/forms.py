@@ -1,5 +1,5 @@
 from flask_wtf import FlaskForm
-from wtforms import SelectMultipleField, SubmitField, StringField, DecimalField, IntegerField
+from wtforms import SelectMultipleField, SubmitField, StringField, DecimalField, IntegerField, BooleanField
 
 from .. import library as lib
 
@@ -17,7 +17,7 @@ class FilterAlbumsForm(FlaskForm):
     reset_filters = SubmitField("Reset Filters")
 
 
-class LibraryForm(FlaskForm):
+class LibraryFormBase(FlaskForm):
     tags_filter = SelectMultipleField('Tags')
     artist_filter = SelectMultipleField('Artists')
     album_filter = SelectMultipleField('Albums')
@@ -41,6 +41,8 @@ class LibraryForm(FlaskForm):
     reset = SubmitField("Reset Filters")
     edit_tags = SubmitField("Edit Tags")
     save_playlist = SubmitField("Save as Playlist")
+    select_all = SubmitField("Select All Tracks")
+    unselect_all = SubmitField("Unselect All Tracks")
 
     def __init__(self):
         super().__init__()
@@ -50,6 +52,14 @@ class LibraryForm(FlaskForm):
         album_choices = sorted([(album.id, album.name) for album in lib.get_all_albums()], key=lambda t: t[1])
         self.album_filter.choices = album_choices
 
+def library_form_builder(tracks):
+    class LibraryForm(LibraryFormBase):
+        pass
+
+    for (i, track) in enumerate(tracks):
+        setattr(LibraryForm, track.id, BooleanField())
+
+    return LibraryForm()
 
 class EditTagsForm(FlaskForm):
     existing_tags = StringField('Existing Tags')
