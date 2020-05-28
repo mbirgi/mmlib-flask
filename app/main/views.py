@@ -51,10 +51,12 @@ def library():
             )
             app.logger.debug(f'filtered_track_ids: {filtered_track_ids}')
             session['filtered_track_ids'] = filtered_track_ids
+            session['selected_track_ids'] = []
             return redirect(url_for('.library'))
         if library_form.reset.data:
             app.logger.debug("button: reset filters")
             del session['filtered_track_ids']
+            del session['selected_track_ids']
             del session['tags_filter_data']
             del session['artist_filter_data']
             del session['album_filter_data']
@@ -68,6 +70,7 @@ def library():
             session['selected_track_ids'] = session.get('filtered_track_ids')
         if library_form.unselect_all.data:
             app.logger.debug(f"button: unselect all tracks")
+            session['selected_track_ids'] = []
 
     elif library_form.errors:
         flash(library_form.errors)
@@ -86,12 +89,13 @@ def library():
     library_form.artist_filter.data = session.get('artist_filter_data')
     library_form.album_filter.data = session.get('album_filter_data')
     if selected_track_ids:
-        # sel_args = {}
         for track_id in selected_track_ids:
-            attr = getattr(library_form, track_id)
-            attr.data = True
-            app.logger.debug(f"attr: {attr}")
-            # sel_args.update({track_id: True})
+            try:
+                attr = getattr(library_form, track_id)
+                attr.data = True
+                app.logger.debug(f"attr: {attr}")
+            except:
+                pass
     return render_template('library.html', library_form=library_form,
                            filtered_tracks=filtered_tracks)
 
